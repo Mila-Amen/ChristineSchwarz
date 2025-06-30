@@ -1,13 +1,63 @@
 {
-  "home": "Home",
-  "about": "About",
-  "services": "Services",
-  "shop": "Shop",
-  "contact": "Contact",  
-  "menu": "Menu",
-  "newsletterTitle": "Subscribe to Our Newsletter",
-  "newsletterDesc": "Stay updated with wellness tips, offers, and news.",
-  "emailPlaceholder": "Your email address",
-  "subscribe": "Subscribe",
-  "rights": "All rights reserved."
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "shop": "Shop",
+    "consultation": "Consultation",
+    "contact": "Contact"
+  },
+  "footer": {
+    "newsletterTitle": "Subscribe to Our Newsletter",
+    "newsletterDesc": "Stay updated with wellness tips, offers, and news.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "rights": "All rights reserved.",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "hero": {
+    "title": "Being Healthy Is Your Strategy",
+    "subtitle": "Nourished. Radiant. Impactful.",
+    "paragraph1": "Real productivity doesn't start with to-do lists or self-optimization – it starts with you. With your body, your energy, your inner balance.",
+    "paragraph2": "As a certified Health Educator, Stress Prevention Coach, and expert in gut health and cellular nutrition, I’ll show you how to make your health your strongest resource.",
+    "paragraph3": "Whether through expert guidance, powerful aloe vera products, or mindful impulses for more inner harmony – I support you holistically on your journey: so you feel great, act with strength, and easily achieve what truly matters – in both life and business."
+  },
+  "about": {
+    "section1": {
+      "title": "My Story",
+      "text": "My name is Christine Schwarz. I used to work in hotel management – a demanding job filled with speed, pressure, and responsibility. But the longer I stayed in that field, the more my body began to slow me down. I was constantly exhausted, had trouble concentrating, and migraines with aura and neurological symptoms became part of my daily life. Seasonal allergies made things even worse.\n\nThen – my son was born. It was a beautiful time, and I breastfed him lovingly for a long period. But at the same time, my health continued to decline – until I received the diagnosis: Hashimoto’s."
+    },
+    "section2": {
+      "title": "My Turning Point",
+      "text": "I had reached a turning point. Instead of resigning to my fate, I chose to take responsibility – for myself, for my health, for my life. I went back to study and became a certified health educator with a focus on pH balance, gut health, cellular nutrition, micronutrient support, and stress & burnout prevention. I wanted to understand what my body truly needed – and how I could restore what it was lacking.\n\nThe journey wasn’t easy. But it was the right one. Within six months, everything began to change: I regained energy, slept deeply and restfully, and my metabolism improved. Even my appearance transformed – with the right care, my chronically dry skin that had troubled me for years disappeared.\n\nToday, I know: being healthy is my strategy. Health is a choice. Nourished. Radiant. Impactful.\n\nThat’s exactly why I now share my knowledge and experience – because I believe everyone deserves to feel powerful, clear, and vibrant. A holistic approach was my key to transformation – and it can be yours too."
+    }
+  },
+  "contact": {
+    "title": "I would love to support you on your journey.",
+    "paragraph": "Whether you're curious about personalized health consultations, need guidance on choosing the right products, or simply want to connect – I’m here to help. Reach out via phone, email, or visit by appointment. Your health and well-being matter, and I’m committed to walking alongside you with knowledge, care, and compassion. Let’s take the first step toward a more vibrant you – together.",
+    "address": "Asternweg 1, 92703 Krummennaab, Germany",
+    "phone": "+49 12 12 4565452",
+    "email": "forever.schwarz@gmail.com",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Write what do you want",
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "status": {
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again.",
+      "sending": "Sending..."
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "stressBurnoutCoaching": "Stress & Burnout Coaching",
+    "healthManagement": "Health Management",
+    "meditation": "Meditation",
+    "myShop": "My Shop"
+  }
 }

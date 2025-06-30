@@ -1,13 +1,64 @@
 {
-  "home": "Startseite",
-  "about": "Über uns",
-  "services": "Dienstleistungen",
-  "shop": "Shop",
-  "contact": "Kontakt",
-  "menu": "Menü",
-  "newsletterTitle": "Abonniere unseren Newsletter",
-  "newsletterDesc": "Bleibe auf dem Laufenden mit Wellness-Tipps, Angeboten und Neuigkeiten.",
-  "emailPlaceholder": "Deine E-Mail-Adresse",
-  "subscribe": "Abonnieren",
-  "rights": "Alle Rechte vorbehalten."
+  "navbar": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "services": "Dienstleistungen",
+    "shop": "Shop",
+    "consultation": "Gesundheitsberatung",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "newsletterTitle": "Abonniere unseren Newsletter",
+    "newsletterDesc": "Bleibe auf dem Laufenden mit Wellness-Tipps, Angeboten und Neuigkeiten.",
+    "emailPlaceholder": "Deine E-Mail-Adresse",
+    "subscribe": "Abonnieren",
+    "rights": "Alle Rechte vorbehalten.",
+    "contact": "Kontakt",
+      "menu": "Menü"
+  },
+  "hero": {
+    "title": "Gesund sein, ist deine Strategie",
+    "subtitle": "Versorgt. Strahlend. Wirksam.",
+    "paragraph1": "Echte Produktivität beginnt nicht mit To-do-Listen oder Selbstoptimierung – sie beginnt mit dir. Mit deinem Körper, deiner Energie, deinem inneren Gleichgewicht.",
+    "paragraph2": "Als zertifizierte Gesundheitspädagogin, Coach für Stressprävention und Expertin für Darmgesundheit und Zellnahrung zeige ich dir, wie du deine Gesundheit zu deiner stärksten Ressource machst.",
+    "paragraph3": "Ob mit fundierter Beratung, wirkungsvollen Aloe-Vera-Produkten oder achtsamen Impulsen für mehr innere Harmonie – ich begleite dich ganzheitlich auf deinem Weg: damit du dich wohlfühlst, kraftvoll handelst und mühelos erreichst, was dir wirklich wichtig ist – im Leben wie im Business."
+  },
+  "about": {
+    "section1": {
+      "title": "Meine Geschichte",
+      "text": "Mein Name ist Christine Schwarz. Früher habe ich im Hotelmanagement gearbeitet – ein anspruchsvoller Beruf, geprägt von Tempo, Druck und Verantwortung. Doch je länger ich darin tätig war, desto mehr spürte ich, wie mein Körper mich ausbremste. Ich war ständig erschöpft, konnte mich schlecht konzentrieren, Migräne mit Aura und Ausfallerscheinungen gehörten irgendwann zu meinem Alltag. Auch die Pollenallergie machte mir das Leben schwer.\n\nUnd dann – kam mein Sohn zur Welt. Eine unbeschreiblich schöne Zeit, in der ich ihn lange und liebevoll gestillt habe. Aber gleichzeitig verschlechterte sich mein gesundheitlicher Zustand weiter – bis zur Diagnose: Hashimoto."
+    },
+    "section2": {
+      "title": "Mein Wendepunkt",
+      "text": "Ich stand an einem Wendepunkt. Statt mich meinem Schicksal zu fügen, entschied ich mich, Verantwortung zu übernehmen – für mich, für meine Gesundheit, für mein Leben. Ich bildete mich weiter, wurde Diplom-Gesundheitspädagogin mit den Schwerpunkten Milieuregulierung, Darmgesundheit, Zellnahrung, Vitalstoffversorgung und Stress- & Burnout-Prävention. Ich wollte verstehen, was mein Körper wirklich braucht – und wie ich ihm zurückgeben kann, was ihm gefehlt hat.\n\nDer Weg war nicht leicht. Aber er war richtig. Bereits nach sechs Monaten spürte ich, wie sich alles veränderte: Ich hatte wieder Energie, schlief tief und erholsam, mein Stoffwechsel kam in Schwung. Und auch äußerlich veränderte sich mein Wohlbefinden – mit der richtigen Pflege verschwand sogar die chronisch trockene Haut, die mich so lange begleitet hatte.\n\nHeute weiß ich: Gesund sein ist meine Strategie. Gesundheit ist eine Entscheidung. Versorgt sein. Strahlen. Wirken.\n\nUnd genau deshalb gebe ich mein Wissen, meine Erfahrung weiter – weil ich glaube, dass jeder Mensch das Recht hat, sich kraftvoll, klar und lebendig zu fühlen. Der ganzheitliche Ansatz war mein Schlüssel zur Veränderung – und er kann auch deiner sein."
+    }
+  },
+  "contact": {
+    "title": "Ich begleite Sie gerne auf Ihrem Weg.",
+    "paragraph": "Ob du eine persönliche Gesundheitsberatung suchst, Hilfe bei der Produktauswahl brauchst oder einfach in Kontakt treten möchtest – ich bin für dich da. Melde dich telefonisch, per E-Mail oder nach Terminvereinbarung. Deine Gesundheit liegt mir am Herzen, und ich unterstütze dich mit Wissen, Empathie und Achtsamkeit. Lass uns gemeinsam den ersten Schritt zu einem vitaleren Ich machen.",
+    "address": "Asternweg 1, 92703 Krummennaab, Deutschland",
+    "phone": "+49 12 12 4565452",
+    "email": "forever.schwarz@gmail.com",
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "subject": "Betreff",
+      "message": "Schreibe, was du möchtest",
+      "send": "Senden",
+      "sending": "Wird gesendet..."
+    },
+    "status": {
+      "success": "Nachricht erfolgreich gesendet!",
+      "error": "Nachricht konnte nicht gesendet werden. Bitte versuche es erneut.",
+      "sending": "Wird gesendet..."
+    }
+  },
+  "services": {
+    "title": "Unsere Leistungen",
+    "stressBurnoutCoaching": "Stress- & Burnout-Coaching",
+    "healthManagement": "Gesundheitsmanagement",
+    "meditation": "Meditation",
+    "myShop": "Mein Shop"
+  }
+  
 }
