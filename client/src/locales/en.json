@@ -59,5 +59,37 @@
     "healthManagement": "Health Management",
     "meditation": "Meditation",
     "myShop": "My Shop"
+  },
+  "shop": {
+    "categoriesTitle": "Categories",
+    "categories": {
+      "all": "All",
+      "kinderkraft": "KinderKraft Treasure Box",
+      "microbiome": "Microbiome Magic Box",
+      "haircare": "Hair Care Set"
+    },
+    "products": {
+      "kinderkraft": "KinderKraft Treasure Box",
+      "microbiome": "Microbiome Magic Box",
+      "haircare": "Hair Care Set",
+      "book": "Healthy Habits Book"
+    }
+  },
+  "consultation": {
+    "title": "Consultation Services",
+    "subtitle": "Choose the best plan for your needs",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "titles": {
+      "meditation": "Meditation",
+      "health": "Health Management",
+      "stress": "Stress & Burnout Coaching"
+    },
+    "features": {
+      "therapy": "Therapy Session",
+      "counseling": "Counseling Session",
+      "mental": "Mental Support",
+      "success": "Success Guarantee"
+    },
+    "button": "Get A Quotation"
   }
 }

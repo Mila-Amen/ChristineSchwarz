@@ -14,7 +14,7 @@
     "subscribe": "Abonnieren",
     "rights": "Alle Rechte vorbehalten.",
     "contact": "Kontakt",
-      "menu": "Menü"
+    "menu": "Menü"
   },
   "hero": {
     "title": "Gesund sein, ist deine Strategie",
@@ -59,6 +59,43 @@
     "healthManagement": "Gesundheitsmanagement",
     "meditation": "Meditation",
     "myShop": "Mein Shop"
+  },
+  "products": {
+    "kinderkraft": "KinderKraft Schatzkiste",
+    "microbiome": "Mikrobiom-Zauberkiste",
+    "haircare": "Haarpflegeset",
+    "book": "Buch über gesunde Gewohnheiten"
+  },
+  "shop": {
+    "categoriesTitle": "Kategorien",
+    "categories": {
+      "all": "Alle",
+      "kinderkraft": "KinderKraft Schatzkiste",
+      "microbiome": "Mikrobiom-Zauberkiste",
+      "haircare": "Haarpflegeset"
+    },
+    "products": {
+      "kinderkraft": "KinderKraft Schatzkiste",
+      "microbiome": "Mikrobiom-Zauberkiste",
+      "haircare": "Haarpflegeset",
+      "book": "Buch über gesunde Gewohnheiten"
+    }
+  },
+  "consultation": {
+    "title": "Beratungsdienste",
+    "subtitle": "Wählen Sie den besten Plan für Ihre Bedürfnisse",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "titles": {
+      "meditation": "Meditation",
+      "health": "Gesundheitsmanagement",
+      "stress": "Stress- & Burnout-Coaching"
+    },
+    "features": {
+      "therapy": "Therapiesitzung",
+      "counseling": "Beratungssitzung",
+      "mental": "Mentale Unterstützung",
+      "success": "Erfolgsgarantie"
+    },
+    "button": "Angebot einholen"
   }
-  
 }

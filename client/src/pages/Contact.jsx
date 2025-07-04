@@ -56,28 +56,28 @@ export default function Contact() {
   };
 
   return (
-    <>
-      <div className="mt-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 flex flex-col lg:flex-row justify-between space-y-12 lg:space-y-0 lg:space-x-8">
-        <div className="flex-1">
-          <h2 className="text-2xl mb-4 text-gray-800 font-bold">
+    <section className="bg-primary">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 flex flex-col lg:flex-row justify-between space-y-12 lg:space-y-0 lg:space-x-8">
+        <div className="flex-1 mt-10 ">
+          <h2 className="text-2xl mb-4 text-gray-200 font-bold">
             {t("contact.title")}
           </h2>
-          <p className="text-justify text-gray-600">{t("contact.paragraph")}</p>
-          <div className="mt-8 space-y-2">
+          <p className="text-justify text-gray-100">{t("contact.paragraph")}</p>
+          <div className="mt-8 space-y-2 text-gray-100">
             <p className="flex items-center text-[13px]">
-              <FaMapMarkerAlt className="text-primary mr-2" />
+              <FaMapMarkerAlt className="text-teal-600 mr-2" />
               {t("contact.address")}
             </p>
             <p className="flex items-center text-[13px]">
-              <FaPhone className="text-primary mr-2" />
+              <FaPhone className="text-teal-600 mr-2" />
               {t("contact.phone")}
             </p>
             <p className="flex items-center text-[13px] ">
-              <FaEnvelope className="text-primary mr-2" />
+              <FaEnvelope className="text-teal-600 mr-2" />
               {t("contact.email")}
             </p>
             <div className="pt-6 mt-8 border-t border-gray-300 ">
-              <div className="flex space-x-8 text-primary text-xl mt-4">
+              <div className="flex space-x-8 text-teal-600 text-xl mt-4">
                 <a
                   href="https://www.facebook.com/yourpage"
                   target="_blank"
@@ -101,8 +101,8 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="max-w-2xl w-full mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="max-w-2xl w-full mx-auto  ">
+          <form onSubmit={handleSubmit} className="space-y-4 mt-20">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -145,7 +145,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="px-8 py-2 bg-primary text-white hover:bg-white hover:text-[#8E7037] border border-[#8E7037] font-bold">
+              className="px-8 py-2 bg-primary text-white hover:bg-white hover:text-[#8E7037] border border-gray-100 font-bold">
               {isSending ? t("contact.form.sending") : t("contact.form.send")}
             </button>
           </form>
@@ -166,6 +166,6 @@ export default function Contact() {
             referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
-    </>
+    </section>
   );
 }
