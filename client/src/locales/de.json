@@ -96,6 +96,16 @@
       "mental": "Mentale Unterstützung",
       "success": "Erfolgsgarantie"
     },
-    "button": "Angebot einholen"
+    "button": "Details anzeigen"
+  },
+  "consultationDetails": {
+    "titles": {
+      "meditation": "Meditationsberatung",
+      "health": "Gesundheitsberatung",
+      "stress": "Stress- und Burnout-Beratung"
+    },
+    "notFound": "Beratung nicht gefunden.",
+    "added": "Zum Warenkorb hinzugefügt:",
+    "addToCart": "In den Warenkorb"
   }
 }

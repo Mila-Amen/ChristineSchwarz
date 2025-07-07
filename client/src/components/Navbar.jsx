@@ -63,7 +63,7 @@ export default function Navbar() {
         </Link>
 
         <button
-          className="md:hidden text-gray-800"
+          className="md:hidden text-white"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >

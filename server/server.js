@@ -7,6 +7,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import mongoose from "mongoose";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -14,8 +16,24 @@ const app = express();
 
 const PORT = process.env.PORT || 5003;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // or "*" if for testing
+    credentials: true,
+    exposedHeaders: ["token"], // 👈 VERY IMPORTANT
+  })
+);
 app.use(express.json());
+
+app.use("/user", userRoutes);
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // For __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);

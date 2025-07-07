@@ -90,6 +90,16 @@
       "mental": "Mental Support",
       "success": "Success Guarantee"
     },
-    "button": "Get A Quotation"
+    "button": "View Details"
+  },
+  "consultationDetails": {
+    "titles": {
+      "meditation": "Meditation Consultation",
+      "health": "Health Consultation",
+      "stress": "Stress & Burnout Consultation"
+    },
+    "notFound": "Consultation not found.",
+    "added": "Added to cart:",
+    "addToCart": "Add to Cart"
   }
 }
