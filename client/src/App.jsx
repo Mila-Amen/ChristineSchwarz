@@ -16,6 +16,10 @@ import ConsultationDetails from "./components/ConsultationDetails";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import EbookDetailsPage from "./components/EbookDetails";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+import CartPage from "./pages/CartPage";
 
 export default function App() {
   return (
@@ -26,6 +30,8 @@ export default function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="/ebook-details" element={<EbookDetailsPage />} />
         <Route path="/consultation" element={<ConsultationPage />} />
         <Route path="/consultation/:id" element={<ConsultationDetails />} />
         <Route path="/about" element={<About />} />
@@ -33,6 +39,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </>

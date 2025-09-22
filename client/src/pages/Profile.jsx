@@ -56,13 +56,25 @@ export default function Profile() {
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4">👤 Profile</h1>
-      <p><strong>First Name:</strong> {user.firstName}</p>
-      <p><strong>Last Name:</strong> {user.lastName}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Phone:</strong> {user.phoneNumber || "N/A"}</p>
-      <p><strong>Address:</strong> {user.address || "N/A"}</p>
-    </div>
+    <section className="pt-32 pb-16 px-6 md:px-24 bg-gray-900 text-white space-y-16">
+      <div className="p-6 max-w-xl mx-auto bg-white text-gray-900 rounded-lg shadow-lg border border-gray-300">
+        <h1 className="text-2xl font-bold mb-4">👤 Profile</h1>
+        <p>
+          <strong>First Name:</strong> {user.firstName}
+        </p>
+        <p>
+          <strong>Last Name:</strong> {user.lastName}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {user.phoneNumber || "N/A"}
+        </p>
+        <p>
+          <strong>Address:</strong> {user.address || "N/A"}
+        </p>
+      </div>
+    </section>
   );
 }

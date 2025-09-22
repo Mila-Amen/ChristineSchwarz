@@ -5,7 +5,8 @@
     "services": "Services",
     "shop": "Shop",
     "consultation": "Consultation",
-    "contact": "Contact"
+    "contact": "Contact",
+    "login": "Login"
   },
   "footer": {
     "newsletterTitle": "Subscribe to Our Newsletter",
@@ -64,42 +65,139 @@
     "categoriesTitle": "Categories",
     "categories": {
       "all": "All",
-      "kinderkraft": "KinderKraft Treasure Box",
-      "microbiome": "Microbiome Magic Box",
-      "haircare": "Hair Care Set"
+      "healthManagement": "Health Management Package",
+      "stressBurnout": "Stress & Burnout Coaching Package",
+      "meditation": "Meditation & Be You Package",
+      "ebook": "E-Book"
     },
     "products": {
-      "kinderkraft": "KinderKraft Treasure Box",
-      "microbiome": "Microbiome Magic Box",
-      "haircare": "Hair Care Set",
-      "book": "Healthy Habits Book"
+      "healthManagement": "Health Management Package",
+      "stressBurnout": "Stress & Burnout Coaching Package",
+      "meditation": "Meditation & Be You Package",
+      "ebook": "E-Book on Healthy Habits",
+      "ebookIntro": "This e-book provides valuable insights into healthy habits and nutrition.",
+      "sample": "Free E-Book",
+      "fullPrice": "E-Book",
+      "addToCart": "Add to Cart",
+      "added": "Added"
+    },
+    "ebook": {
+      "sampleLink": "/ebooks/healthy-habits-preview.pdf",
+      "fullPrice": "€29",
+      "backToShop": "Back to Shop"
     }
   },
   "consultation": {
     "title": "Consultation Services",
     "subtitle": "Choose the best plan for your needs",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "titles": {
       "meditation": "Meditation",
       "health": "Health Management",
       "stress": "Stress & Burnout Coaching"
     },
-    "features": {
-      "therapy": "Therapy Session",
-      "counseling": "Counseling Session",
-      "mental": "Mental Support",
-      "success": "Success Guarantee"
+    "items": {
+      "meditation": {
+        "description": "Strengthen your self-awareness, find inner peace, and connect with yourself.",
+        "features": [
+          "Guided meditations",
+          "Mindfulness practices",
+          "Personalized support",
+          "More calmness in daily life"
+        ],
+        "prices": ["€120 – Meditation Basic", "€190 – Meditation + 1:1 Session"]
+      },
+      "health": {
+        "description": "Nourish your cells, improve gut health, and strengthen your body sustainably.",
+        "features": [
+          "Personalized nutrition plans",
+          "Nutrient analysis",
+          "Holistic health strategies",
+          "Long-term energy & well-being"
+        ],
+        "prices": ["€290 – Analysis + Concept"]
+      },
+      "stress": {
+        "description": "Calm your nervous system, recognize stress patterns, and build inner stability.",
+        "features": [
+          "Stress management techniques",
+          "Burnout prevention",
+          "Promoting emotional stability",
+          "Clarity & inner strength"
+        ],
+        "prices": ["€360 – 3 Coaching Sessions"]
+      }
     },
-    "button": "View Details"
+    "button": "View details",
+    "back": "Back to overview"
   },
   "consultationDetails": {
     "titles": {
-      "meditation": "Meditation Consultation",
-      "health": "Health Consultation",
-      "stress": "Stress & Burnout Consultation"
+      "health": "Health Management",
+      "stress": "Stress & Burnout Coaching",
+      "meditation": "Meditation & be you"
     },
+    "items": {
+      "health": {
+        "intro": "Your body. Your energy. Your choice. Health does not begin with fighting symptoms – it begins with understanding. In my health management program, I support you in identifying and regulating the causes of your exhaustion, restlessness, or physical imbalance. Holistic, well-founded, and practical for everyday life.",
+        "expect": [
+          "Personal health analysis – holistic anamnesis & goal clarification – review of lifestyle, nutrition, micronutrient status & gut health – first impulses for regulation and cellular support",
+          "Individual health concept – recommendations for micronutrient supply & cellular nutrition – nutrition ideas, fasting/relief days & autophagy impulses – everyday rituals for more energy & inner balance"
+        ],
+        "forWhom": "For people who want to feel good again. For everyone who feels: I don’t want to just function anymore – I want to feel myself again.",
+        "packages": [
+          {
+            "label": "€290 incl. analysis, concept & written summary",
+            "price": 290
+          }
+        ]
+      },
+      "stress": {
+        "intro": "Out of functioning – into your strength. Stress often starts quietly – but runs deep. As a certified stress and burnout coach, I help you recognize your inner drivers, relieve your nervous system, and find new ways to move through your everyday life with clarity and ease.",
+        "expect": [
+          "3 coaching sessions of 60 minutes each (online)",
+          "Analysis of your stress patterns & resources",
+          "Tools for self-regulation, mindfulness & everyday relief",
+          "Integration into your family or professional life"
+        ],
+        "forWhom": "For people who feel exhausted but don’t want to give up. For everyone who wants to regain their strength – without pressure, but with depth.",
+        "packages": [
+          {
+            "label": "€360 incl. 3 sessions, materials & personal coaching plan",
+            "price": 360
+          }
+        ]
+      },
+      "meditation": {
+        "intro": "In stillness lies your truth. In a world full of stimuli, expectations, and speed, you need a place where you can simply be yourself. With my self-recorded meditations, I guide you into this space – mindful, loving, and deep. “be you” is more than a motto. It’s an invitation to feel yourself. In stillness. In depth. In your truth.",
+        "expect": [
+          "Access to selected audio meditations (topics: self-awareness, inner peace, clarity, centering)",
+          "Impulses for integration into your everyday life",
+          "Optional: 1:1 session to deepen your personal practice"
+        ],
+        "forWhom": "For people who want to feel themselves again. For everyone who longs for inner peace, clarity, and self-connection.",
+        "packages": [
+          {
+            "label": "€120 incl. meditations & impulse material",
+            "price": 120
+          },
+          {
+            "label": "€190 incl. meditations & impulse material, optional with 1:1 session",
+            "price": 190
+          }
+        ]
+      }
+    },
+    "chooseDate": "Choose a date",
+    "chooseTime": "Choose a time",
+    "datePlaceholder": "Select a date",
+    "timePlaceholder": "-- Select a time --",
+    "dateError": "Please select a date before booking.",
+    "timeError": "Please select a time before booking.",
+    "addToCart": "Add to Cart",
     "notFound": "Consultation not found.",
-    "added": "Added to cart:",
-    "addToCart": "Add to Cart"
+    "back": "Back",
+    "choosePrice": "Choose a price",
+    "pricePlaceholder": "Please select",
+    "priceError": "Please choose a price"
   }
 }

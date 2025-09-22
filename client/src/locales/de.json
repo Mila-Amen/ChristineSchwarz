@@ -1,7 +1,7 @@
 {
   "navbar": {
     "home": "Startseite",
-    "about": "Über uns",
+    "about": "Über mich",
     "services": "Dienstleistungen",
     "shop": "Shop",
     "consultation": "Gesundheitsberatung",
@@ -70,42 +70,117 @@
     "categoriesTitle": "Kategorien",
     "categories": {
       "all": "Alle",
-      "kinderkraft": "KinderKraft Schatzkiste",
-      "microbiome": "Mikrobiom-Zauberkiste",
-      "haircare": "Haarpflegeset"
+      "healthManagement": "Gesundheitsmanagement-Paket",
+      "stressBurnout": "Stress- & Burnout Coaching-Paket",
+      "meditation": "Meditation & be you Paket",
+      "ebook": "E-Book"
     },
     "products": {
-      "kinderkraft": "KinderKraft Schatzkiste",
-      "microbiome": "Mikrobiom-Zauberkiste",
-      "haircare": "Haarpflegeset",
-      "book": "Buch über gesunde Gewohnheiten"
+      "healthManagement": "Gesundheitsmanagement-Paket",
+      "stressBurnout": "Stress- & Burnout Coaching-Paket",
+      "meditation": "Meditation & be you Paket",
+      "ebook": "E-Book über gesunde Gewohnheiten",
+      "ebookIntro": "Dieses E-Book gibt dir wertvolle Einblicke in gesunde Gewohnheiten und Ernährung.",
+      "sample": "Kostenfreies E-Book",
+      "fullPrice": "E-Book",
+      "addToCart": "In den Warenkorb",
+      "added": "Hinzugefügt"
+    },
+    "ebook": {
+      "sampleLink": "/ebooks/healthy-habits-preview.pdf",
+      "fullPrice": "€29",
+      "backToShop": "Zurück zum Shop"
     }
   },
   "consultation": {
     "title": "Beratungsdienste",
     "subtitle": "Wählen Sie den besten Plan für Ihre Bedürfnisse",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "titles": {
       "meditation": "Meditation",
       "health": "Gesundheitsmanagement",
       "stress": "Stress- & Burnout-Coaching"
     },
-    "features": {
-      "therapy": "Therapiesitzung",
-      "counseling": "Beratungssitzung",
-      "mental": "Mentale Unterstützung",
-      "success": "Erfolgsgarantie"
+    "items": {
+      "meditation": {
+        "description": "Stärken Sie Ihre Selbstwahrnehmung, finden Sie innere Ruhe und verbinden Sie sich mit sich selbst.",
+        "features": [
+          "Geführte Meditationen",
+          "Achtsamkeitsübungen",
+          "Individuelle Begleitung",
+          "Mehr Gelassenheit im Alltag"
+        ],
+        "prices": ["€120 – Meditation Basic", "€190 – Meditation + 1:1 Session"]
+      },
+      "health": {
+        "description": "Versorgen Sie Ihre Zellen, fördern Sie die Darmgesundheit und stärken Sie Ihren Körper nachhaltig.",
+        "features": [
+          "Individuelle Ernährungspläne",
+          "Vitalstoffanalyse",
+          "Ganzheitliche Gesundheitsstrategien",
+          "Langfristige Energie & Wohlbefinden"
+        ],
+        "prices": ["€290 – Analyse + Konzept"]
+      },
+      "stress": {
+        "description": "Beruhigen Sie Ihr Nervensystem, erkennen Sie Stressmuster und finden Sie innere Stabilität.",
+        "features": [
+          "Stressbewältigungstechniken",
+          "Burnout-Prävention",
+          "Emotionale Stabilität fördern",
+          "Klarheit & innere Stärke"
+        ],
+        "prices": ["€360 – 3 Coaching Sessions"]
+      }
     },
-    "button": "Details anzeigen"
+    "button": "Details anzeigen",
+    "back": "Zurück zur Übersicht"
   },
   "consultationDetails": {
     "titles": {
-      "meditation": "Meditationsberatung",
-      "health": "Gesundheitsberatung",
-      "stress": "Stress- und Burnout-Beratung"
+      "health": "Gesundheitsmanagement",
+      "stress": "Stress- & Burnout Coaching",
+      "meditation": "Meditation & be you"
     },
+    "items": {
+      "health": {
+        "intro": "Dein Körper. Deine Energie. Deine Entscheidung. Gesundheit beginnt nicht mit Symptombekämpfung – sondern mit Verständnis. In meinem Gesundheitsmanagement-Angebot begleite ich dich dabei, die Ursachen deiner Erschöpfung, Unruhe oder körperlichen Dysbalance zu erkennen und gezielt zu regulieren. Ganzheitlich, fundiert und alltagstauglich.",
+        "expect": [
+          "Persönliche Gesundheitsanalyse – Ganzheitliche Anamnese & Zielklärung – Betrachtung von Lebensstil, Ernährung, Vitalstoffstatus & Darmmilieu – Erste Impulse zur Milieuregulierung und Zellunterstützung",
+          "Individuelles Gesundheitskonzept – Empfehlungen zur Vitalstoffversorgung & Zellnahrung – Ernährungsideen, Entlastungstage & Autophagie-Impulse – Alltagstaugliche Rituale für mehr Energie & innere Balance"
+        ],
+        "forWhom": "Für Menschen, die sich wieder wohlfühlen möchten. Für alle, die spüren: Ich will nicht länger nur funktionieren – ich will mich wieder spüren."
+      },
+      "stress": {
+        "intro": "Raus aus dem Funktionieren – rein in deine Kraft. Stress beginnt oft leise – aber er wirkt tief. Als zertifizierte Stress- und Burnout-Coachin helfe ich dir, deine inneren Antreiber zu erkennen, dein Nervensystem zu entlasten und neue Wege zu finden, wie du mit Klarheit und Leichtigkeit durch deinen Alltag gehst.",
+        "expect": [
+          "3 Coaching-Sessions à 60 Min (online)",
+          "Analyse deiner Stressmuster & Ressourcen",
+          "Tools für Selbstregulation, Achtsamkeit & Alltagserleichterung",
+          "Integration in deinen Familien- oder Berufsalltag"
+        ],
+        "forWhom": "Für Menschen, die sich erschöpft fühlen, aber nicht aufgeben wollen. Für alle, die wieder in ihre Kraft kommen möchten – ohne Druck, aber mit Tiefe."
+      },
+      "meditation": {
+        "intro": "In der Stille liegt deine Wahrheit. In einer Welt voller Reize, Erwartungen und Tempo braucht es einen Ort, an dem du einfach nur du sein darfst. Mit meinen selbst aufgenommenen Meditationen begleite ich dich in diesen Raum – achtsam, liebevoll und tief. „be you“ ist mehr als ein Motto. Es ist eine Einladung, dich selbst zu spüren. In der Ruhe. In der Tiefe. In deiner Wahrheit.",
+        "expect": [
+          "Zugang zu ausgewählten Audio-Meditationen (Themen: Selbstwahrnehmung, innere Ruhe, Klarheit, Zentrierung)",
+          "Impulse zur Integration in deinen Alltag",
+          "Optional: 1:1 Session zur Vertiefung deiner persönlichen Praxis"
+        ],
+        "forWhom": "Für Menschen, die sich wieder spüren möchten. Für alle, die sich nach innerer Ruhe, Klarheit und Selbstverbundenheit sehnen."
+      }
+    },
+    "chooseDate": "Wählen Sie ein Datum",
+    "chooseTime": "Wählen Sie eine Uhrzeit",
+    "datePlaceholder": "Datum auswählen",
+    "timePlaceholder": "-- Uhrzeit auswählen --",
+    "dateError": "Bitte wählen Sie ein Datum, bevor Sie buchen.",
+    "timeError": "Bitte wählen Sie eine Uhrzeit, bevor Sie buchen.",
+    "addToCart": "In den Warenkorb",
     "notFound": "Beratung nicht gefunden.",
-    "added": "Zum Warenkorb hinzugefügt:",
-    "addToCart": "In den Warenkorb"
+    "back": "Zurück",
+    "choosePrice": "Wähle einen Preis",
+    "pricePlaceholder": "Bitte auswählen",
+    "priceError": "Bitte einen Preis wählen"
   }
 }

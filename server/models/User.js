@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   password: String,
   phoneNumber: String,
   address: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 export default mongoose.model("User", userSchema);

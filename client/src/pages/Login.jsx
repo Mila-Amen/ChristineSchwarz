@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext.jsx";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // install react-icons if not installed
 
 export default function Login() {
   const { login } = useContext(UserContext);
@@ -12,11 +13,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [showPassword, setShowPassword] = useState(false); // state for password toggle
 
   const baseUrl =
     import.meta.env.MODE === "development" ? "http://localhost:5003" : "";
 
-  // Auto-navigate if already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -36,27 +37,22 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch(`${baseUrl}/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
-      /*       const token = response.headers.get("token");
-       */ const data = await response.json();
+      const data = await response.json();
       const token = data.token;
 
       if (!response.ok) {
         throw new Error(data.message || "Invalid email or password.");
       }
-
       if (!token) {
         throw new Error("No token received.");
       }
 
-      // Store token and login
       localStorage.setItem("token", token);
       login(token, data);
       alert("Login successful!");
@@ -87,19 +83,29 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password *"
-            className="border border-white p-2 bg-transparent text-white placeholder-white"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password *"
+              className="border border-white p-2 bg-transparent text-white placeholder-white w-full pr-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="absolute right-2 top-2 text-white cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </span>
+          </div>
 
           <button
             type="submit"
-            className="text-white py-2 border border-white hover:bg-teal-600 hover:text-white transition-colors font-bold">
+            className="text-white py-2 border border-white hover:bg-teal-600 hover:text-white transition-colors font-bold"
+          >
             LOGIN
           </button>
 

@@ -91,10 +91,10 @@ export default function Contact() {
                   <FaInstagram className="hover:text-[#E1306C]" />
                 </a>
                 <a
-                  href="https://www.youtube.com/@teambeyou901"
+                  href="https://www.youtube.com/watch?v=InS0o62WO7U&list=PLWUo2y0MmvR8kBVM3AS1F1gOS9yC1QUOt"
                   target="_blank"
                   rel="noopener noreferrer">
-                  <FaYoutube className="hover:text-[#FF0000]" />
+                  <FaYoutube className="hover:text-[#FF0000]" size={24} />
                 </a>
               </div>
             </div>

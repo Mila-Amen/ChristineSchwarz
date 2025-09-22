@@ -9,19 +9,19 @@ const services = [
     key: "stressBurnoutCoaching",
     title: "Stress & Burnout Coaching",
     image: "Stress&BurnoutCoaching.jpg",
-    link: "/consultation",
+    link: "/consultation/stress",
   },
   {
     key: "healthManagement",
     title: "Health Management",
     image: "HealthManagement.jpg",
-    link: "/consultation",
+    link: "/consultation/health",
   },
   {
     key: "meditation",
     title: "Meditation",
     image: "Meditation.jpg",
-    link: "https://www.youtube.com/watch?v=3mbkVHjn7vY",
+    link: "https://www.youtube.com/watch?v=InS0o62WO7U&list=PLWUo2y0MmvR8kBVM3AS1F1gOS9yC1QUOt",
     target: "_blank",
   },
   {
@@ -44,42 +44,42 @@ export default function Services() {
   }, []);
 
   return (
-<section className="bg-primary">
-<div className="max-w-7xl mx-auto px-6 py-16 ">
-      <h2 className="text-3xl font-bold text-center text-white mb-12 mt-10">
-        {t("services.title")}
-      </h2>
+    <section className="bg-primary">
+      <div className="max-w-7xl mx-auto px-6 py-16 ">
+        <h2 className="text-3xl font-bold text-center text-white mb-12 mt-10">
+          {t("services.title")}
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {services.map(({ key, image, link, target }, index) => (
-          <Link
-            to={link}
-            key={key}
-            target={target}
-            rel="noopener noreferrer"
-            data-aos="fade-up"
-            className="group relative block rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300">
-            <img
-              src={image}
-              alt={t(`services.${key}`)}
-              className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"
-            />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
-              <h3 className="text-white text-3xl font-semibold px-4 text-center">
-                {t(`services.${key}`)}
-              </h3>
-            </div>
-            {/* Title below image for accessibility */}
-            <div className="p-4 text-center md:hidden">
-              <h3 className="text-lg font-semibold text-gray-800">
-                {t(`services.${key}`)}
-              </h3>
-            </div>
-          </Link>
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {services.map(({ key, image, link, target }, index) => (
+            <Link
+              to={link}
+              key={key}
+              target={target}
+              rel="noopener noreferrer"
+              data-aos="fade-up"
+              className="group relative block rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300">
+              <img
+                src={image}
+                alt={t(`services.${key}`)}
+                className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
+                <h3 className="text-white text-3xl font-semibold px-4 text-center">
+                  {t(`services.${key}`)}
+                </h3>
+              </div>
+              {/* Title below image for accessibility */}
+              <div className="p-4 text-center md:hidden">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {t(`services.${key}`)}
+                </h3>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
-</section>
+    </section>
   );
 }
