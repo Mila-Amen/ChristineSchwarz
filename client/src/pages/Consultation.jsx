@@ -19,15 +19,15 @@ export default function ConsultationPage() {
       <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {consultationKeys.map((key) => {
           const item = t(`consultation.items.${key}`, { returnObjects: true });
-          const packages = t(`consultationDetails.items.${key}.packages`, {
-            returnObjects: true,
-          }) || [{ label: item.invest || "", price: item.invest || "" }];
 
-          // show price or range if multiple packages
+          // Fetch packages or fallback to a single invest price
+          const packages =
+            t(`consultationDetails.items.${key}.packages`, {
+              returnObjects: true,
+            }) || [{ label: item.invest || "", price: item.invest || "" }];
+
           const priceDisplay =
-            key === "stress"
-              ? "€360 "
-              : packages.length > 1
+            packages.length > 1
               ? `${packages[0].price} - ${packages[packages.length - 1].price}`
               : packages[0].price;
 
@@ -38,7 +38,8 @@ export default function ConsultationPage() {
                 key === "health"
                   ? "bg-[#1b3d35] text-white scale-105 hover:scale-110"
                   : "bg-white text-gray-900"
-              }`}>
+              }`}
+            >
               <div>
                 <h3 className="text-xl font-semibold mb-2">
                   {t(`consultation.titles.${key}`)}
@@ -62,7 +63,8 @@ export default function ConsultationPage() {
 
               <Link
                 to={`/consultation/${key}`}
-                className="mt-6 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center">
+                className="mt-6 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center"
+              >
                 {t("consultation.button")}
               </Link>
             </div>

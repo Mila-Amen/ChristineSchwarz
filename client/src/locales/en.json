@@ -83,7 +83,10 @@
       "freeEbook": "Free E-Book",
       "backToShop": "Back to Shop",
       "paidEbook": "E-Book on Healthy Habits",
-      "paidEbookIntro": "This full version e-book provides detailed insights into healthy habits, nutrition, and practical exercises to improve your daily life."
+      "paidEbookIntro": "This full version e-book provides detailed insights into healthy habits, nutrition, and practical exercises to improve your daily life.",
+      "health": "Health Consultation",
+      "stress": "Stress Consultation",
+      "burnout": "Burnout Consultation"
     },
     "ebook": {
       "sampleLink": "/ebooks/healthy-habits-preview.pdf",
@@ -208,7 +211,7 @@
     "title": "Your Cart",
     "empty": "Your cart is empty.",
     "backToShop": "Go book a consultation",
-    "date": "No date selected",
+    "date": "Date",
     "time": "Time",
     "price": "Price",
     "quantity": "Quantity",

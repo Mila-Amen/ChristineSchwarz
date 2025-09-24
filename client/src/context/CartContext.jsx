@@ -4,30 +4,20 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState(() => {
-    // ✅ Initialize directly from localStorage
     const saved = localStorage.getItem("cartItems");
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [cartCount, setCartCount] = useState(() => {
-    const saved = localStorage.getItem("cartCount");
-    return saved ? Number(saved) : 0;
-  });
-
-  // ✅ Save to localStorage whenever cart changes
+  // Save to localStorage whenever cart changes
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    localStorage.setItem("cartCount", cartCount.toString());
-  }, [cartItems, cartCount]);
+  }, [cartItems]);
 
-  // ✅ Sync across multiple browser tabs
+  // Sync across multiple tabs
   useEffect(() => {
     const syncCart = (event) => {
       if (event.key === "cartItems" && event.newValue) {
         setCartItems(JSON.parse(event.newValue));
-      }
-      if (event.key === "cartCount" && event.newValue) {
-        setCartCount(Number(event.newValue));
       }
     };
     window.addEventListener("storage", syncCart);
@@ -35,17 +25,33 @@ export function CartProvider({ children }) {
   }, []);
 
   const addToCart = (item) => {
-    setCartItems((prev) => [...prev, item]);
-    setCartCount((prev) => prev + 1);
+    if (!item.quantity) item.quantity = 1;
+
+    setCartItems((prev) => {
+      const updated = [...prev];
+
+      if (item.type !== "consultation") {
+        const existingIndex = updated.findIndex(
+          (i) => i.key === item.key && i.type !== "consultation"
+        );
+
+        if (existingIndex !== -1) {
+          updated[existingIndex] = {
+            ...updated[existingIndex],
+            quantity: updated[existingIndex].quantity + item.quantity,
+          };
+          return updated;
+        }
+      }
+
+      // Add new item if not found
+      updated.push(item);
+      return updated;
+    });
   };
 
   const removeFromCart = (index) => {
-    const removedItem = cartItems[index];
     setCartItems((prev) => prev.filter((_, i) => i !== index));
-
-    if (removedItem) {
-      setCartCount((prev) => Math.max(prev - 1, 0));
-    }
   };
 
   const updateQuantity = (index, quantity) => {
@@ -56,7 +62,6 @@ export function CartProvider({ children }) {
 
   const clearCart = () => {
     setCartItems([]);
-    setCartCount(0);
   };
 
   const totalPrice = cartItems.reduce((total, item) => {
@@ -66,6 +71,12 @@ export function CartProvider({ children }) {
     const quantity = item.quantity || 1;
     return total + priceNum * quantity;
   }, 0);
+
+  // Compute cartCount dynamically
+  const cartCount = cartItems.reduce(
+    (sum, item) => sum + (item.quantity || 1),
+    0
+  );
 
   return (
     <CartContext.Provider
@@ -77,8 +88,7 @@ export function CartProvider({ children }) {
         clearCart,
         totalPrice,
         cartCount,
-      }}
-    >
+      }}>
       {children}
     </CartContext.Provider>
   );

@@ -67,20 +67,17 @@ export default function ConsultationDetails() {
       return;
     }
 
-    // Correct translation key for cart
-    let cartKey = consultation.key;
-    if (cartKey === "health") cartKey = "healthManagement";
-    if (cartKey === "stress") cartKey = "stressBurnout";
+    // Use consultation.titles for title
+    const title = t(`consultation.titles.${consultation.key}`);
 
     addToCart({
-      ...consultation,
-      key: cartKey, // matches JSON shop.products
+      key: consultation.key,
+      type: "consultation",
       date: selectedDate,
       time: selectedTime,
-      price:
-        consultation.key === "meditation" ? selectedPrice : consultation.price,
-      type: "consultation",
-      title: t(`shop.products.${cartKey}`), // ensures translated title
+      price: selectedPrice,
+      quantity: 1,
+      title,
     });
 
     setAdded(true);

@@ -28,27 +28,21 @@ export default function CartPage() {
             {cartItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col lg:flex-row items-start lg:items-center justify-between bg-gray-100 p-4 rounded">
+                className="flex flex-col lg:flex-row items-start lg:items-center justify-between bg-gray-100 p-4 rounded"
+              >
                 {/* Item Info */}
                 <div className="flex flex-col gap-1 w-full lg:w-3/4">
                   <h3 className="font-bold text-lg">
-                    {item.key
-                      ? t(`shop.products.${item.key}`, {
+                    {item.type === "consultation"
+                      ? t(`consultation.titles.${item.key}`, {
                           defaultValue: item.title,
                         })
-                      : item.title}
+                      : t(`shop.products.${item.key}`, {
+                          defaultValue: item.title,
+                        })}
                   </h3>
 
-                  {item.type && (
-                    <p>
-                      {t("cartPage.type")}:{" "}
-                      {item.type
-                        ? t(`cartPage.types.${item.type}`, {
-                            defaultValue: item.type,
-                          })
-                        : ""}
-                    </p>
-                  )}
+                  {item.type && <p>{t(`cartPage.types.${item.type}`)}</p>}
                   {item.date && (
                     <p>
                       {t("cartPage.date")}:{" "}
@@ -85,7 +79,8 @@ export default function CartPage() {
                   )}
                   <button
                     onClick={() => removeFromCart(index)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                  >
                     {t("cartPage.remove")}
                   </button>
                 </div>
@@ -101,12 +96,14 @@ export default function CartPage() {
             <div className="flex gap-2">
               <button
                 onClick={clearCart}
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+              >
                 {t("cartPage.clearCart")}
               </button>
               <button
                 onClick={() => navigate("/checkout")}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+              >
                 {t("cartPage.checkout")}
               </button>
             </div>

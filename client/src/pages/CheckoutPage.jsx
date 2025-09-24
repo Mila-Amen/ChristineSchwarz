@@ -2,16 +2,18 @@
 import React from "react";
 import { useCart } from "../context/CartContext.jsx";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CheckoutPage() {
   const { cartItems, totalPrice, cartCount } = useCart();
+  const { t } = useTranslation();
 
   if (cartItems.length === 0) {
     return (
       <section className="bg-primary py-16 px-4 text-center text-white">
-        <h2 className="text-3xl font-bold mb-4">Your cart is empty</h2>
+        <h2 className="text-3xl font-bold mb-4">{t("cartPage.empty")}</h2>
         <Link to="/shop" className="text-blue-400 underline">
-          Go back to Shop
+          {t("cartPage.backToShop")}
         </Link>
       </section>
     );
@@ -21,7 +23,7 @@ export default function CheckoutPage() {
     <section className="bg-primary py-16 px-4">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
         <h2 className="text-3xl font-bold mb-6 text-gray-900">
-          Checkout Summary
+          {t("checkout.title", "Checkout Summary")}
         </h2>
 
         {/* Cart Items */}
@@ -29,11 +31,26 @@ export default function CheckoutPage() {
           {cartItems.map((item, index) => (
             <div
               key={index}
-              className="flex justify-between items-center bg-gray-100 p-4 rounded">
+              className="flex justify-between items-center bg-gray-100 p-4 rounded"
+            >
               <div className="flex flex-col">
-                <h3 className="font-bold">{item.title}</h3>
-                {item.quantity && <p>Qty: {item.quantity}</p>}
-                {item.price && <p>Price: {item.price}</p>}
+                <h3 className="font-bold">
+                  {item.type === "consultation"
+                    ? t(`consultation.titles.${item.key}`, { defaultValue: item.title })
+                    : t(`shop.products.${item.key}`)}
+                </h3>
+                {item.date && (
+                  <p>
+                    {t("cartPage.date")}: {new Date(item.date).toLocaleDateString()}
+                  </p>
+                )}
+                {item.time && (
+                  <p>
+                    {t("cartPage.time")}: {item.time}
+                  </p>
+                )}
+                {item.quantity && <p>{t("cartPage.quantity")}: {item.quantity}</p>}
+                {item.price && <p>{t("cartPage.price")}: {item.price}</p>}
               </div>
               {item.coverImage && (
                 <img
@@ -49,7 +66,7 @@ export default function CheckoutPage() {
         {/* Total */}
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold text-gray-900">
-            Total ({cartCount} items):
+            {t("cartPage.total")} ({cartCount} {t("cartPage.items")}):
           </h3>
           <p className="text-xl font-bold text-gray-900">
             €{totalPrice.toFixed(2)}
@@ -59,14 +76,15 @@ export default function CheckoutPage() {
         {/* Payment Button */}
         <button
           className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 text-lg font-bold"
-          onClick={() => alert("Here we will redirect to payment gateway")}>
-          Proceed to Payment
+          onClick={() => alert("Here we will redirect to payment gateway")}
+        >
+          {t("checkout.proceedToPayment", "Proceed to Payment")}
         </button>
 
         {/* Back to Cart */}
         <div className="mt-6 text-center">
           <Link to="/cart" className="text-blue-500 underline">
-            ← Back to Cart
+            ← {t("checkout.backToCart", "Back to Cart")}
           </Link>
         </div>
       </div>

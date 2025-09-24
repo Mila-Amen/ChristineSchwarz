@@ -88,7 +88,10 @@
       "freeEbook": "Kostenloses E-Book",
       "paidEbook": "E-Book über gesunde Gewohnheiten ",
       "paidEbookIntro": "Diese Vollversion des E-Books bietet detaillierte Einblicke in gesunde Gewohnheiten, Ernährung und praktische Übungen für den Alltag.",
-      "backToShop": "Zurück zum Shop"
+      "backToShop": "Zurück zum Shop",
+      "health": "Gesundheitsberatung",
+      "stress": "Stress-Beratung",
+      "burnout": "Burnout-Beratung"
     },
     "ebook": {
       "sampleLink": "/ebooks/healthy-habits-preview.pdf",
