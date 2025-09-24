@@ -9,30 +9,45 @@ const products = [
     id: 1,
     key: "healthManagement",
     category: "healthManagement",
-    image: "/HealthManagement.jpg",
+    image: "/HealthManagmentPaket.jpg",
     link: "https://thealoeveraco.shop/8FkLMnTE",
   },
   {
     id: 2,
     key: "stressBurnout",
     category: "stressBurnout",
-    image: "/StressBurnoutCoaching.jpg",
+    image: "/Stress&BurnOutPaket.jpg",
     link: "https://thealoeveraco.shop/tP5KbRtM",
   },
   {
     id: 3,
     key: "meditation",
     category: "meditation",
-    image: "/Meditation.jpg",
+    image: "/MeditationPaket.jpg",
     link: "https://thealoeveraco.shop/OCPCUAi7",
   },
+  // Free e-book
   {
     id: 4,
-    key: "ebook",
+    key: "freeEbook",
     category: "ebook",
-    image: "/Ebook.jpg",
-    link: "/ebook-details", // redirect to your ebook details page
+    image: "/E-Book.jpg",
     download: true,
+    isDigital: true,
+    downloadLink: "/downloads/free-ebook.pdf",
+    link: "/ebook-details", // keep your detail page
+  },
+  // Paid e-book (€29)
+  {
+    id: 5,
+    key: "paidEbook",
+    category: "ebook",
+    download: true,
+    image: "/E-Book.jpg",
+    price: "€29",
+    isDigital: true,
+    downloadLink: "/downloads/paid-ebook.pdf",
+    link: "/ebook-details-paid", // optional detail page
   },
 ];
 
@@ -75,10 +90,11 @@ export default function ShopPage() {
           {filteredProducts.map((product) => (
             <Link
               key={product.id}
-              to={product.category === "ebook" ? "/ebook-details" : product.link}
+              to={product.category === "ebook" ? product.link : product.link}
               target={product.download ? "_self" : "_blank"}
               rel="noopener noreferrer"
-              className="p-4 rounded-lg shadow hover:text-black transition block bg-[#4D5D53] text-white">
+              className="p-4 rounded-lg shadow hover:text-black transition block bg-[#4D5D53] text-white"
+            >
               <img
                 src={product.image}
                 alt={t(`shop.products.${product.key}`)}
@@ -87,6 +103,8 @@ export default function ShopPage() {
               <h3 className="text-lg font-semibold mb-2">
                 {t(`shop.products.${product.key}`)}
               </h3>
+              {/* Show price for paid e-book */}
+              {product.price && <p className="font-bold">{product.price}</p>}
             </Link>
           ))}
         </div>

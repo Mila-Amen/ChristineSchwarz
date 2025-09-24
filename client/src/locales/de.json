@@ -84,7 +84,11 @@
       "sample": "Kostenfreies E-Book",
       "fullPrice": "E-Book",
       "addToCart": "In den Warenkorb",
-      "added": "Hinzugefügt"
+      "added": "Hinzugefügt",
+      "freeEbook": "Kostenloses E-Book",
+      "paidEbook": "E-Book über gesunde Gewohnheiten ",
+      "paidEbookIntro": "Diese Vollversion des E-Books bietet detaillierte Einblicke in gesunde Gewohnheiten, Ernährung und praktische Übungen für den Alltag.",
+      "backToShop": "Zurück zum Shop"
     },
     "ebook": {
       "sampleLink": "/ebooks/healthy-habits-preview.pdf",
@@ -181,6 +185,32 @@
     "back": "Zurück",
     "choosePrice": "Wähle einen Preis",
     "pricePlaceholder": "Bitte auswählen",
-    "priceError": "Bitte einen Preis wählen"
+    "priceError": "Bitte einen Preis wählen",
+    "expectTitle": "Was dich erwartet",
+    "forWhomTitle": "Für wen",
+    "investTitle": "Deine Investition",
+    "added": "Hinzugefügt"
+  },
+
+  "cartPage": {
+    "title": "Warenkorb",
+    "empty": "Dein Warenkorb ist leer.",
+    "itemsTitle": "Deine Artikel",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "price": "Preis",
+    "quantity": "Menge",
+    "total": "Gesamtsumme",
+    "remove": "Entfernen",
+    "clearCart": "Warenkorb leeren",
+    "checkout": "Zur Kasse",
+    "added": "Hinzugefügt",
+    "backToShop": "Zurück zum Shop",
+    "session": "Sitzung",
+    "sessions": "Sitzungen",
+    "types": {
+      "consultation": "Beratungstermin",
+      "ebook": "E-Book"
+    }
   }
 }

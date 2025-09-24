@@ -20,6 +20,8 @@ import EbookDetailsPage from "./components/EbookDetails";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import CartPage from "./pages/CartPage";
+import PaidEbookDetails from "./components/PaidEbookDetails";
+import CheckoutPage from "./pages/CheckoutPage";
 
 export default function App() {
   return (
@@ -31,7 +33,9 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="checkout" element={<CheckoutPage />} />
         <Route path="/ebook-details" element={<EbookDetailsPage />} />
+        <Route path="/ebook-details-paid" element={<PaidEbookDetails />} />
         <Route path="/consultation" element={<ConsultationPage />} />
         <Route path="/consultation/:id" element={<ConsultationDetails />} />
         <Route path="/about" element={<About />} />

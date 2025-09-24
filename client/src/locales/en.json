@@ -79,7 +79,11 @@
       "sample": "Free E-Book",
       "fullPrice": "E-Book",
       "addToCart": "Add to Cart",
-      "added": "Added"
+      "added": "Added",
+      "freeEbook": "Free E-Book",
+      "backToShop": "Back to Shop",
+      "paidEbook": "E-Book on Healthy Habits",
+      "paidEbookIntro": "This full version e-book provides detailed insights into healthy habits, nutrition, and practical exercises to improve your daily life."
     },
     "ebook": {
       "sampleLink": "/ebooks/healthy-habits-preview.pdf",
@@ -199,5 +203,22 @@
     "choosePrice": "Choose a price",
     "pricePlaceholder": "Please select",
     "priceError": "Please choose a price"
+  },
+  "cartPage": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty.",
+    "backToShop": "Go book a consultation",
+    "date": "No date selected",
+    "time": "Time",
+    "price": "Price",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "total": "Total",
+    "clearCart": "Clear Cart",
+    "checkout": "Checkout",
+    "types": {
+      "consultation": "Consultation Booking",
+      "ebook": "E-Book"
+    }
   }
 }

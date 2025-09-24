@@ -8,13 +8,13 @@ const services = [
   {
     key: "stressBurnoutCoaching",
     title: "Stress & Burnout Coaching",
-    image: "Stress&BurnoutCoaching.jpg",
+    image: "Stress&BurnOutCoatching.jpg",
     link: "/consultation/stress",
   },
   {
     key: "healthManagement",
     title: "Health Management",
-    image: "HealthManagement.jpg",
+    image: "ServicesHealthManagment.jpg",
     link: "/consultation/health",
   },
   {
@@ -27,7 +27,7 @@ const services = [
   {
     key: "myShop",
     title: "My Shop",
-    image: "MyShop.jpg",
+    image: "ServicesShop.jpg",
     link: "/shop",
   },
 ];
@@ -62,7 +62,7 @@ export default function Services() {
               <img
                 src={image}
                 alt={t(`services.${key}`)}
-                className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"
+                className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">

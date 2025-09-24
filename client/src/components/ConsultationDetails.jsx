@@ -7,8 +7,8 @@ import { useCart } from "../context/CartContext.jsx";
 
 const consultations = [
   { key: "meditation", price: "€200" },
-  { key: "health", price: "€300" },
-  { key: "stress", price: "€250" },
+  { key: "health", price: "€290" },
+  { key: "stress", price: "€360" },
 ];
 
 // Example time slots – you can expand these as needed
@@ -20,6 +20,7 @@ export default function ConsultationDetails() {
   const { addToCart } = useCart();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
+  const [added, setAdded] = useState(false);
 
   const consultation = consultations.find((c) => c.key === id);
 
@@ -66,17 +67,27 @@ export default function ConsultationDetails() {
       return;
     }
 
+    // Correct translation key for cart
+    let cartKey = consultation.key;
+    if (cartKey === "health") cartKey = "healthManagement";
+    if (cartKey === "stress") cartKey = "stressBurnout";
+
     addToCart({
       ...consultation,
+      key: cartKey, // matches JSON shop.products
       date: selectedDate,
       time: selectedTime,
       price:
         consultation.key === "meditation" ? selectedPrice : consultation.price,
+      type: "consultation",
+      title: t(`shop.products.${cartKey}`), // ensures translated title
     });
+
+    setAdded(true);
   };
 
   return (
-    <section className="bg-gray-50 py-16 px-4">
+    <section className="bg-primary py-16 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
         {/* title */}
         <h2 className="text-3xl font-bold text-teal-700 mb-4">
@@ -116,7 +127,7 @@ export default function ConsultationDetails() {
           {consultation.key === "meditation"
             ? selectedPrice + " / Session"
             : consultation.key === "health"
-            ? "€290 / Session"
+            ? "€290 - 3 Session"
             : consultation.key === "stress"
             ? "€360 – 3 Sessions"
             : t(`consultationDetails.items.${consultation.key}.invest`)}
@@ -184,8 +195,16 @@ export default function ConsultationDetails() {
           </Link>
           <button
             onClick={handleAddToCart}
-            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
-            {t("consultationDetails.addToCart")}
+            className={`py-2 px-4 rounded ${
+              added
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-green-600 text-white hover:bg-green-700"
+            }`}
+            disabled={added} // optional, prevents double-click
+          >
+            {added
+              ? t("consultationDetails.added") || "Added"
+              : t("consultationDetails.addToCart")}
           </button>
         </div>
       </div>
