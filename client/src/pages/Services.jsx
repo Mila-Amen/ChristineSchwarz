@@ -9,13 +9,13 @@ const services = [
     key: "stressBurnoutCoaching",
     title: "Stress & Burnout Coaching",
     image: "Stress&BurnOutCoatching.jpg",
-    link: "/consultation/stress",
+    link: "/consultation",
   },
   {
     key: "healthManagement",
     title: "Health Management",
     image: "ServicesHealthManagment.jpg",
-    link: "/consultation/health",
+    link: "/consultation",
   },
   {
     key: "meditation",

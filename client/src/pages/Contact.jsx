@@ -72,10 +72,15 @@ export default function Contact() {
               <FaPhone className="text-teal-600 mr-2" />
               {t("contact.phone")}
             </p>
-            <p className="flex items-center text-[13px] ">
+            <p className="flex items-center text-[13px]">
               <FaEnvelope className="text-teal-600 mr-2" />
-              {t("contact.email")}
+              <a
+                href="mailto:info@christineschwarz.life"
+                className="hover:underline">
+                info@christineschwarz.life
+              </a>
             </p>
+
             <div className="pt-6 mt-8 border-t border-gray-300 ">
               <div className="flex space-x-8 text-teal-600 text-xl mt-4">
                 <a

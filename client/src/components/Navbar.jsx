@@ -89,31 +89,8 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-4 ml-2 relative" ref={langRef}>
-            <Link
-              to="/favorites"
-              className="text-white hover:text-teal-600 text-xl transition"
-              aria-label={t("navbar.favorites")}>
-              <FiHeart />
-            </Link>
-            <Link
-              to="/cart"
-              className="text-white hover:text-teal-600 text-xl transition relative"
-              aria-label={t("navbar.cart")}>
-              <FiShoppingCart />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-
-            <Link
-              to="/login"
-              className="px-3 py-1 border border-teal-600 rounded-md text-white hover:bg-teal-600 hover:text-white transition"
-              onClick={handleLinkClick}>
-              {t("navbar.login") || "Login"}
-            </Link>
-
+           
+          
             {/* Language Switch */}
             <div className="relative inline-block text-gray-700">
               <button
@@ -173,31 +150,7 @@ export default function Navbar() {
             </ul>
 
             <div className="flex items-center gap-4 mt-6">
-              <Link
-                to="/favorites"
-                className="text-gray-700 hover:text-teal-600 text-xl transition"
-                onClick={handleLinkClick}>
-                <FiHeart />
-              </Link>
-              <Link
-                to="/cart"
-                className="text-gray-700 hover:text-teal-600 text-xl transition relative"
-                onClick={handleLinkClick}>
-                <FiShoppingCart />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-
-              <Link
-                to="/login"
-                className="px-3 py-1 border border-teal-600 rounded-md text-gray-700 hover:bg-teal-600 hover:text-white transition"
-                onClick={handleLinkClick}>
-                {t("navbar.login") || "Login"}
-              </Link>
-
+              
               <div
                 className="relative ml-auto inline-block text-gray-700"
                 ref={mobileLangRef}>

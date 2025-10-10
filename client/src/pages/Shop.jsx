@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const categoriesData = ["all", "healthManagement", "stressBurnout", "meditation", "ebook"];
+const categoriesData = [
+  "all",
+  "healthManagement",
+  "stressBurnout",
+  "meditation",
+  "ebook",
+];
 
 const products = [
   {
@@ -47,7 +53,8 @@ const products = [
     price: "€29",
     isDigital: true,
     downloadLink: "/downloads/paid-ebook.pdf",
-    link: "/ebook-details-paid", // optional detail page
+    link: "https://www.checkout-ds24.com/product/637511",
+    target: "blank", // optional detail page
   },
 ];
 
@@ -87,26 +94,41 @@ export default function ShopPage() {
 
         {/* Products Grid */}
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 flex-1 mt-20">
-          {filteredProducts.map((product) => (
-            <Link
-              key={product.id}
-              to={product.category === "ebook" ? product.link : product.link}
-              target={product.download ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-              className="p-4 rounded-lg shadow hover:text-black transition block bg-[#4D5D53] text-white"
-            >
-              <img
-                src={product.image}
-                alt={t(`shop.products.${product.key}`)}
-                className="w-full h-48 object-cover mb-4 rounded"
-              />
-              <h3 className="text-lg font-semibold mb-2">
-                {t(`shop.products.${product.key}`)}
-              </h3>
-              {/* Show price for paid e-book */}
-              {product.price && <p className="font-bold">{product.price}</p>}
-            </Link>
-          ))}
+          {filteredProducts.map((product) => {
+            const isExternal = product.link.startsWith("http");
+
+            const content = (
+              <>
+                <img
+                  src={product.image}
+                  alt={t(`shop.products.${product.key}`)}
+                  className="w-full h-48 object-cover mb-4 rounded"
+                />
+                <h3 className="text-lg font-semibold mb-2">
+                  {t(`shop.products.${product.key}`)}
+                </h3>
+                {product.price && <p className="font-bold">{product.price}</p>}
+              </>
+            );
+
+            return isExternal ? (
+              <a
+                key={product.id}
+                href={product.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-lg shadow hover:text-black transition block bg-[#4D5D53] text-white">
+                {content}
+              </a>
+            ) : (
+              <Link
+                key={product.id}
+                to={product.link}
+                className="p-4 rounded-lg shadow hover:text-black transition block bg-[#4D5D53] text-white">
+                {content}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

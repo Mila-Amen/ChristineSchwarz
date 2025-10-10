@@ -1,11 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 export default function ConsultationPage() {
   const { t } = useTranslation();
 
   const consultationKeys = ["meditation", "health", "stress"];
+
+  // Map each consultation type to its checkout link
+  const checkoutLinks = {
+    meditation: "https://www.checkout-ds24.com/product/637509",
+    health: "https://www.checkout-ds24.com/product/637490",
+    stress: "https://www.checkout-ds24.com/product/637506",
+  };
 
   return (
     <section className="bg-primary py-16 px-4">
@@ -20,7 +26,6 @@ export default function ConsultationPage() {
         {consultationKeys.map((key) => {
           const item = t(`consultation.items.${key}`, { returnObjects: true });
 
-          // Fetch packages or fallback to a single invest price
           const packages =
             t(`consultationDetails.items.${key}.packages`, {
               returnObjects: true,
@@ -61,12 +66,15 @@ export default function ConsultationPage() {
                 </ul>
               </div>
 
-              <Link
-                to={`/consultation/${key}`}
+              {/* External checkout link */}
+              <a
+                href={checkoutLinks[key]}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-center"
               >
                 {t("consultation.button")}
-              </Link>
+              </a>
             </div>
           );
         })}

@@ -36,7 +36,7 @@ export default function Footer() {
             {t("footer.contact")}
           </h3>
           <p>Christine Schwarz</p>
-          <p>forever.schwarz@gmail.com</p>
+          <p>info@christineschwarz.life</p>
           <p>+49 12 12 4565452</p>
           <p>Asternweg 1, 92703 <br />Krummennaab</p>
         </div>
