@@ -62,7 +62,7 @@ const saveMessageToFile = ({ name, email, message }) => {
 };
 
 // ---------- Nodemailer Transporter ----------
-/* const createTransporter = () => {
+ const createTransporter = () => {
   return nodemailer.createTransport({
     host: "server1.s-tech.de", // this works for your host
     port: 465,
@@ -75,7 +75,7 @@ const saveMessageToFile = ({ name, email, message }) => {
       rejectUnauthorized: false, // ignore domain/cert mismatch
     },
   });
-}; */
+}; 
 // ---------- Nodemailer Transporter ----------
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
@@ -160,7 +160,7 @@ app.post("/subscribe", async (req, res) => {
   try {
     subscribers.push(email);
     fs.writeFileSync(filePath, JSON.stringify(subscribers, null, 2));
-    
+
     await transporter.sendMail({
       from: `"Christine Schwarz" <info@christineschwarz.life>`,
       to: "info@christineschwarz.life",
@@ -239,6 +239,10 @@ app.post("/user/reset-password/:token", async (req, res) => {
     console.error("❌ Reset password error:", error);
     res.status(500).json({ message: "Server error" });
   }
+});
+
+app.get("/", (req, res) => {
+  res.send("Server is running!");
 });
 
 // ---------- Start server ----------
