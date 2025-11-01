@@ -34,18 +34,23 @@ export default function Contact() {
     setStatusMessage("Sending...");
 
     try {
-      const response = await fetch("http://192.168.178.87:5003/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });      
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/contact`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         setStatusMessage("✅ Message sent successfully!");
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         const data = await response.json();
-        setStatusMessage(`❌ Failed to send message: ${data.error || "Unknown error"}`);
+        setStatusMessage(
+          `❌ Failed to send message: ${data.error || "Unknown error"}`
+        );
       }
     } catch (error) {
       console.error("Error:", error);
@@ -75,20 +80,31 @@ export default function Contact() {
             </p>
             <p className="flex items-center text-[13px]">
               <FaEnvelope className="text-teal-600 mr-2" />
-              <a href="mailto:info@christineschwarz.life" className="hover:underline">
+              <a
+                href="mailto:info@christineschwarz.life"
+                className="hover:underline">
                 info@christineschwarz.life
               </a>
             </p>
 
             <div className="pt-6 mt-8 border-t border-gray-300">
               <div className="flex space-x-8 text-teal-600 text-xl mt-4">
-                <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.facebook.com/yourpage"
+                  target="_blank"
+                  rel="noopener noreferrer">
                   <FaFacebookF className="hover:text-[#3b5998]" />
                 </a>
-                <a href="https://www.instagram.com/tine.lifestyle/" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.instagram.com/tine.lifestyle/"
+                  target="_blank"
+                  rel="noopener noreferrer">
                   <FaInstagram className="hover:text-[#E1306C]" />
                 </a>
-                <a href="https://www.youtube.com/watch?v=InS0o62WO7U" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.youtube.com/watch?v=InS0o62WO7U"
+                  target="_blank"
+                  rel="noopener noreferrer">
                   <FaYoutube className="hover:text-[#FF0000]" size={24} />
                 </a>
               </div>
@@ -136,19 +152,19 @@ export default function Contact() {
               onChange={handleChange}
               required
               rows="6"
-              className="w-full px-3 py-2 border border-primary"
-            ></textarea>
+              className="w-full px-3 py-2 border border-primary"></textarea>
 
             <button
               type="submit"
               disabled={isSending}
-              className="px-8 py-2 bg-primary text-white hover:bg-white hover:text-[#8E7037] border border-gray-100 font-bold"
-            >
+              className="px-8 py-2 bg-primary text-white hover:bg-white hover:text-[#8E7037] border border-gray-100 font-bold">
               {isSending ? "Sending..." : "Send"}
             </button>
           </form>
 
-          {statusMessage && <p className="mt-2 text-gray-100">{statusMessage}</p>}
+          {statusMessage && (
+            <p className="mt-2 text-gray-100">{statusMessage}</p>
+          )}
         </div>
       </div>
 
@@ -161,8 +177,7 @@ export default function Contact() {
           style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+          referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
   );

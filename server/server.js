@@ -49,7 +49,7 @@ app.use("/user", userRoutes);
 
 // ---------- __dirname for file paths ----------
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 // ---------- Helpers ----------
 const saveMessageToFile = ({ name, email, message }) => {
@@ -62,7 +62,7 @@ const saveMessageToFile = ({ name, email, message }) => {
 };
 
 // ---------- Nodemailer Transporter ----------
- const createTransporter = () => {
+const createTransporter = () => {
   return nodemailer.createTransport({
     host: "server1.s-tech.de", // this works for your host
     port: 465,
@@ -75,7 +75,7 @@ const saveMessageToFile = ({ name, email, message }) => {
       rejectUnauthorized: false, // ignore domain/cert mismatch
     },
   });
-}; 
+};
 // ---------- Nodemailer Transporter ----------
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
@@ -243,6 +243,12 @@ app.post("/user/reset-password/:token", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
+});
+const __dirname = path.resolve(); // ensures compatibility
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 // ---------- Start server ----------
