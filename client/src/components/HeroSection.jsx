@@ -5,7 +5,7 @@ export default function HeroSection() {
   const { t } = useTranslation();
 
   return (
-    <section className="min-h-screen bg-primary text-white px-4 sm:px-6 md:px-16 lg:px-24">
+    <section className="min-h-screen bg-primary text-white px-4 sm:px-6 md:px-16 lg:px-16">
       <div className="flex flex-col md:flex-row items-stretch gap-8 min-h-[calc(100vh-6rem)]">
         {/* Left: Image */}
         <div className="relative w-full md:w-1/2 flex justify-center items-end md:items-center">

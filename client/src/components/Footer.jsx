@@ -7,24 +7,30 @@ export default function Footer() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const sendEmail = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
 
-    if (!email) return setStatus(t("footer.invalidEmail"));
+    try {
+      const res = await fetch("http://localhost:5003/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-    emailjs
-      .send(
-        "your_service_id",     // Replace with your EmailJS service ID
-        "your_template_id",    // Replace with your EmailJS template ID
-        { user_email: email },
-        "your_public_key"      // Replace with your EmailJS public key
-      )
-      .then(() => {
-        setStatus(t("footer.successMessage"));
-        setEmail("");
-      })
-      .catch(() => setStatus(t("footer.errorMessage")));
+      const data = await res.json();
+
+      if (res.ok) {
+        setSuccessMessage(data.message); // "Subscription received"
+        setEmail(""); // clear input
+      } else {
+        setSuccessMessage("Failed to subscribe");
+      }
+    } catch (err) {
+      console.error(err);
+      setSuccessMessage("Server error");
+    }
   };
 
   return (
@@ -38,7 +44,10 @@ export default function Footer() {
           <p>Christine Schwarz</p>
           <p>info@christineschwarz.life</p>
           <p>+49 12 12 4565452</p>
-          <p>Asternweg 1, 92703 <br />Krummennaab</p>
+          <p>
+            Asternweg 1, 92703 <br />
+            Krummennaab
+          </p>
         </div>
 
         {/* Menu */}
@@ -69,8 +78,9 @@ export default function Footer() {
             {t("footer.newsletterTitle")}
           </h3>
           <p className="mb-4">{t("footer.newsletterDesc")}</p>
-
-          <form onSubmit={sendEmail} className="flex flex-col sm:flex-row gap-2">
+          <form
+            onSubmit={handleSubscribe}
+            className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
               name="user_email"
@@ -85,8 +95,7 @@ export default function Footer() {
               {t("footer.subscribe")}
             </button>
           </form>
-
-          {status && <p className="text-sm mt-2 text-teal-700">{status}</p>}
+          {successMessage && <p className="successMessage">{successMessage}</p>}{" "}
         </div>
       </div>
 

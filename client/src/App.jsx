@@ -13,17 +13,19 @@ import Services from "./pages/Services";
 import ShopPage from "./pages/Shop";
 import ConsultationPage from "./pages/Consultation";
 import ScrollToTop from "./pages/ScrollToTop";
+import EbookDetails from "./components/EbookDetails";
 
 export default function App() {
   return (
     <>
       <Navbar />
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/ebook-details" element={<EbookDetails />} />
         <Route path="/consultation" element={<ConsultationPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
