@@ -1,4 +1,4 @@
-/* import axios from "axios";
+ import axios from "axios";
 
 const verifyCaptcha = async (token) => {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
@@ -9,4 +9,4 @@ const verifyCaptcha = async (token) => {
   );
   return response.data.success;
 };
- */
+ 

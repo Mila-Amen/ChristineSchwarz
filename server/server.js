@@ -6,11 +6,7 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import crypto from "crypto";
-import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import userRoutes from "./routes/userRoutes.js";
-import User from "./models/User.js";
 
 dotenv.config();
 
@@ -28,6 +24,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL, // e.g., "http://192.168.178.87:5173"
   process.env.PROD_URL, // e.g., "https://christineschwarz.life"
   "http://localhost:5173",
+  "https://christineschwarz.onrender.com",
 ];
 
 app.use(
@@ -45,11 +42,10 @@ app.use(
 
 // ---------- Middleware ----------
 app.use(express.json());
-app.use("/user", userRoutes);
 
 // ---------- __dirname for file paths ----------
 const __filename = fileURLToPath(import.meta.url);
-
+const __dirname = dirname(__filename);
 
 // ---------- Helpers ----------
 const saveMessageToFile = ({ name, email, message }) => {
@@ -62,7 +58,7 @@ const saveMessageToFile = ({ name, email, message }) => {
 };
 
 // ---------- Nodemailer Transporter ----------
-const createTransporter = () => {
+/*  const createTransporter = () => {
   return nodemailer.createTransport({
     host: "server1.s-tech.de", // this works for your host
     port: 465,
@@ -75,12 +71,13 @@ const createTransporter = () => {
       rejectUnauthorized: false, // ignore domain/cert mismatch
     },
   });
-};
+};  */
 // ---------- Nodemailer Transporter ----------
+/*   */
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
-  port: 587,
-  secure: false, // STARTTLS
+  port: 465,
+  secure: true, // STARTTLS
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -99,19 +96,6 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: "server1.s-tech.de",
-      port: 587,
-      secure: false, // STARTTLS
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: { rejectUnauthorized: false },
-      logger: true,
-      debug: true,
-    });
-
     // Email to admin
     await transporter.sendMail({
       from: '"Christine Schwarz" <info@christineschwarz.life>',
@@ -180,7 +164,7 @@ app.post("/subscribe", async (req, res) => {
     res.status(500).json({ error: "Failed to send email" });
   }
 });
-
+/* 
 // Forgot Password
 app.post("/user/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -213,9 +197,9 @@ app.post("/user/forgot-password", async (req, res) => {
     console.error("❌ Forgot password error:", error);
     res.status(500).json({ message: "Server error" });
   }
-});
+}); */
 
-// Reset Password
+/* // Reset Password
 app.post("/user/reset-password/:token", async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
@@ -239,17 +223,20 @@ app.post("/user/reset-password/:token", async (req, res) => {
     console.error("❌ Reset password error:", error);
     res.status(500).json({ message: "Server error" });
   }
-});
+}); */
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });
-const __dirname = path.resolve(); // ensures compatibility
-app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ Mail server connection failed:", error);
+  } else {
+    console.log("✅ Mail server is ready to send emails");
+  }
 });
+
 
 // ---------- Start server ----------
 app.listen(PORT, () => {

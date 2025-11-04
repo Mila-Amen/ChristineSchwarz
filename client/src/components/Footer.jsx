@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import emailjs from "emailjs-com"; // make sure this is installed
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -13,7 +12,7 @@ export default function Footer() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5003/subscribe", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
