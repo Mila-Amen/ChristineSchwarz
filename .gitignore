@@ -10,7 +10,7 @@ Server/.env
 client/.env
 
 # Build outputs
-client/dist/
+# client/dist/
 Server/messages.json
 Server/subscribers.json
 

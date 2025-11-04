@@ -21,18 +21,18 @@ mongoose
 
 // ---------- CORS ----------
 const allowedOrigins = [
-  process.env.CLIENT_URL, // e.g., "http://192.168.178.87:5173"
-  process.env.PROD_URL, // e.g., "https://christineschwarz.life"
-  "http://localhost:5173",
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+  process.env.PROD_URL,
   "https://christineschwarz.onrender.com",
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow Postman or curl
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      callback(new Error("CORS not allowed for this origin"));
+      callback(new Error(`CORS not allowed for this origin: ${origin}`));
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -40,44 +40,16 @@ app.use(
   })
 );
 
-// ---------- Middleware ----------
 app.use(express.json());
 
-// ---------- __dirname for file paths ----------
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// ---------- Helpers ----------
-const saveMessageToFile = ({ name, email, message }) => {
-  const filePath = path.join(__dirname, "messages.json");
-  const existing = fs.existsSync(filePath)
-    ? JSON.parse(fs.readFileSync(filePath))
-    : [];
-  existing.push({ name, email, message, date: new Date().toISOString() });
-  fs.writeFileSync(filePath, JSON.stringify(existing, null, 2));
-};
-
-// ---------- Nodemailer Transporter ----------
-/*  const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: "server1.s-tech.de", // this works for your host
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false, // ignore domain/cert mismatch
-    },
-  });
-};  */
-// ---------- Nodemailer Transporter ----------
-/*   */
+// ---------- Nodemailer ----------
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
   port: 465,
-  secure: true, // STARTTLS
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -87,32 +59,27 @@ const transporter = nodemailer.createTransport({
   debug: true,
 });
 
-// ---------- Contact Form ----------
+// ---------- API Routes ----------
 app.post("/api/contact", async (req, res) => {
   const { name, email, subject, message } = req.body;
-
-  if (!name || !email || !message) {
+  if (!name || !email || !message)
     return res.status(400).json({ error: "All fields are required" });
-  }
 
   try {
-    // Email to admin
     await transporter.sendMail({
       from: '"Christine Schwarz" <info@christineschwarz.life>',
-      to: ["info@christineschwarz.life"],
+      to: "info@christineschwarz.life",
       subject: `New Contact Form Submission: ${subject}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
-    // Confirmation email to user
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Thank you for your message!",
-      text: `Hi ${name},\n\nThank you for contacting me. I’ve received your message and will reply shortly.\n\nBest regards,\nChristine Schwarz`,
+      text: `Hi ${name},\n\nThank you for contacting me. I’ll reply soon.\n\nBest regards,\nChristine Schwarz`,
     });
 
-    // Optional: save messages to JSON
     const filePath = path.join(__dirname, "messages.json");
     const existing = fs.existsSync(filePath)
       ? JSON.parse(fs.readFileSync(filePath))
@@ -126,9 +93,9 @@ app.post("/api/contact", async (req, res) => {
     res.status(500).json({ error: "Server error: Email not sent" });
   }
 });
+
 app.post("/subscribe", async (req, res) => {
   const { email } = req.body;
-
   if (!email) return res.status(400).json({ error: "Email required" });
 
   const filePath = path.join(__dirname, "subscribers.json");
@@ -136,10 +103,8 @@ app.post("/subscribe", async (req, res) => {
     ? JSON.parse(fs.readFileSync(filePath))
     : [];
 
-  // Check if already subscribed
-  if (subscribers.includes(email)) {
-    return res.status(400).json({ error: "This email is already subscribed." });
-  }
+  if (subscribers.includes(email))
+    return res.status(400).json({ error: "Already subscribed." });
 
   try {
     subscribers.push(email);
@@ -151,94 +116,35 @@ app.post("/subscribe", async (req, res) => {
       subject: "New Newsletter Subscription",
       text: `New subscriber: ${email}`,
     });
+
     await transporter.sendMail({
       from: `"Christine Schwarz" <info@christineschwarz.life>`,
       to: email,
       subject: "Thank you for subscribing!",
-      text: `Hi,\n\nThank you for subscribing to our newsletter! We’ll keep you updated with the latest news and offers.\n\nBest regards,\nChristine Schwarz`,
+      text: `Hi,\n\nThank you for subscribing to our newsletter!\n\nBest regards,\nChristine Schwarz`,
     });
 
     res.json({ message: "Subscription received" });
   } catch (err) {
-    console.error(err);
+    console.error("❌ Subscribe error:", err);
     res.status(500).json({ error: "Failed to send email" });
   }
 });
-/* 
-// Forgot Password
-app.post("/user/forgot-password", async (req, res) => {
-  const { email } = req.body;
 
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+// ---------- Root route ----------
+app.get("/", (req, res) => res.send("Server is running!"));
 
-    const token = crypto.randomBytes(32).toString("hex");
-    const expire = Date.now() + 3600 * 1000;
-
-    user.resetPasswordToken = token;
-    user.resetPasswordExpires = expire;
-    await user.save();
-
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
-    const transporter = createTransporter();
-
-    await transporter.sendMail({
-      from: `"Christine Schwarz" <info@christineschwarz.life>`,
-      to: email,
-      subject: "Password Reset Request",
-      html: `<p>Hi,</p>
-             <p>Click <a href="${resetUrl}">here</a> to reset your password. This link is valid for 1 hour.</p>
-             <p>If you did not request this, please ignore this email.</p>`,
-    });
-
-    res.json({ message: "Password reset email sent!" });
-  } catch (error) {
-    console.error("❌ Forgot password error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-}); */
-
-/* // Reset Password
-app.post("/user/reset-password/:token", async (req, res) => {
-  const { token } = req.params;
-  const { password } = req.body;
-
-  try {
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() },
-    });
-
-    if (!user)
-      return res.status(400).json({ message: "Invalid or expired token" });
-
-    user.password = await bcrypt.hash(password, 10);
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
-    await user.save();
-
-    res.json({ message: "Password has been reset successfully!" });
-  } catch (error) {
-    console.error("❌ Reset password error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-}); */
-
-app.get("/", (req, res) => {
-  res.send("Server is running!");
+// ---------- Verify transporter ----------
+transporter.verify((error) => {
+  if (error) console.error("❌ Mail server connection failed:", error);
+  else console.log("✅ Mail server is ready to send emails");
 });
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ Mail server connection failed:", error);
-  } else {
-    console.log("✅ Mail server is ready to send emails");
-  }
-});
-
+// ---------- Serve React frontend ----------
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"))
+);
 
 // ---------- Start server ----------
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
