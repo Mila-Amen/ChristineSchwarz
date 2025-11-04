@@ -30,7 +30,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin) return callback(null, true);
+      if (!origin) return callback(null, true); // allow Postman/curl
       if (allowedOrigins.includes(origin)) return callback(null, true);
       callback(new Error(`CORS not allowed for this origin: ${origin}`));
     },
@@ -40,6 +40,7 @@ app.use(
   })
 );
 
+// ---------- Middleware ----------
 app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -59,6 +60,11 @@ const transporter = nodemailer.createTransport({
   debug: true,
 });
 
+transporter.verify((error) => {
+  if (error) console.error("❌ Mail server connection failed:", error);
+  else console.log("✅ Mail server is ready to send emails");
+});
+
 // ---------- API Routes ----------
 app.post("/api/contact", async (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -66,6 +72,7 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
 
   try {
+    // Email to admin
     await transporter.sendMail({
       from: '"Christine Schwarz" <info@christineschwarz.life>',
       to: "info@christineschwarz.life",
@@ -73,6 +80,7 @@ app.post("/api/contact", async (req, res) => {
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
+    // Confirmation email to user
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -80,6 +88,7 @@ app.post("/api/contact", async (req, res) => {
       text: `Hi ${name},\n\nThank you for contacting me. I’ll reply soon.\n\nBest regards,\nChristine Schwarz`,
     });
 
+    // Save messages (note: ephemeral on Render)
     const filePath = path.join(__dirname, "messages.json");
     const existing = fs.existsSync(filePath)
       ? JSON.parse(fs.readFileSync(filePath))
@@ -131,18 +140,11 @@ app.post("/subscribe", async (req, res) => {
   }
 });
 
-// ---------- Root route ----------
-app.get("/", (req, res) => res.send("Server is running!"));
-
-// ---------- Verify transporter ----------
-transporter.verify((error) => {
-  if (error) console.error("❌ Mail server connection failed:", error);
-  else console.log("✅ Mail server is ready to send emails");
-});
-
 // ---------- Serve React frontend ----------
 app.use(express.static(path.join(__dirname, "../client/dist")));
-app.get("*", (req, res) =>
+
+// SPA routing: serve index.html for all unmatched routes
+app.get("/*", (req, res) =>
   res.sendFile(path.join(__dirname, "../client/dist/index.html"))
 );
 
