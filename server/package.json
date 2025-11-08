@@ -1,4 +1,18 @@
 {
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "client:build": "cd client && npm install && npm run build",
+    "dev": "nodemon server.js",
+    "build": "npm run client:build"
+  },
   "dependencies": {
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
@@ -11,16 +25,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  },
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "client:build": "cd client && npm install && npm run build",
-    "dev": "nodemon server.js",
-    "build": "npm run client:build"
   }
 }
