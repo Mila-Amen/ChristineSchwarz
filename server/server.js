@@ -141,11 +141,11 @@ app.post("/subscribe", async (req, res) => {
 });
 
 // ---------- Serve React frontend ----------
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "client/dist")));
 
 // SPA routing: serve index.html for all unmatched routes
 app.get(/.*/, (req, res) =>
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"))
+  res.sendFile(path.join(__dirname, "client/dist/index.html"))
 );
 
 // ---------- Start server ----------

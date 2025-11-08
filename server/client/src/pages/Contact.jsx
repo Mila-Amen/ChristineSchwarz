@@ -7,7 +7,7 @@ import {
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../node_modules/react-i18next";
 
 export default function Contact() {
   const { t } = useTranslation();
