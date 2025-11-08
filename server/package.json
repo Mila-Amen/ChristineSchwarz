@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "client:build": "cd client && npm install && npm run build",
+    "client:build": "cd ../client && npm install && npm run build",
     "dev": "nodemon server.js",
     "build": "npm run client:build"
   },
