@@ -25,6 +25,8 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   process.env.PROD_URL,
   "https://christineschwarz.onrender.com",
+  "http://localhost:5173",
+  "http://localhost:5003",
 ];
 
 app.use(
@@ -141,12 +143,12 @@ app.post("/subscribe", async (req, res) => {
 });
 
 // ---------- Serve React frontend ----------
-app.use(express.static(path.join(__dirname, "client/dist")));
-
+const clientDistPath = path.join(__dirname, "../client/dist");
+app.use(express.static(clientDistPath));
 // SPA routing: serve index.html for all unmatched routes
-app.get(/.*/, (req, res) =>
-  res.sendFile(path.join(__dirname, "client/dist/index.html"))
-);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(clientDistPath, "index.html"));
+});
 
 // ---------- Start server ----------
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
