@@ -5,26 +5,30 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import crypto from "crypto";
+import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import userRoutes from "./routes/userRoutes.js";
+import User from "./models/User.js";
 
 dotenv.config();
-
+const app = express();
+const PORT = process.env.PORT || 5003;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import router from "./router.js"; // ✅ This works in ESM
+// ---------- MongoDB ----------
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-const app = express();
-const PORT = process.env.PORT || 5003;
-
-// ---------- CORS (first!) ----------
+// ---------- CORS ----------
 const allowedOrigins = [
   process.env.CLIENT_URL,
-  process.env.FRONTEND_URL,
   process.env.PROD_URL,
-  "https://christineschwarz.onrender.com",
   "http://localhost:5173",
-  "http://localhost:5003",
+  "https://christineschwarz.onrender.com",
 ];
 
 app.use(
@@ -32,7 +36,7 @@ app.use(
     origin: (origin, callback) => {
       if (!origin) return callback(null, true); // allow Postman/curl
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      callback(new Error(`CORS not allowed for this origin: ${origin}`));
+      callback(null, false); // <-- just reject, don't throw an error
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -40,25 +44,23 @@ app.use(
   })
 );
 
+// Handle preflight requests for all routes
+app.options("*", cors());
+
 // ---------- Middleware ----------
 app.use(express.json());
-app.use("/api", router);
+app.use("/user", userRoutes);
 
 // ---------- Nodemailer ----------
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
   tls: { rejectUnauthorized: false },
-});
-
-transporter.verify((err) => {
-  if (err) console.error("❌ Mail server connection failed:", err);
-  else console.log("✅ Mail server ready");
 });
 
 // ---------- Contact Form ----------
@@ -71,15 +73,15 @@ app.post("/api/contact", async (req, res) => {
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
-      subject: `New Contact: ${subject}`,
+      subject: `New Contact Form Submission: ${subject}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Thanks for your message!",
-      text: `Hi ${name},\n\nThanks for contacting me.\n\nBest regards,\nChristine Schwarz`,
+      subject: "Thank you for your message!",
+      text: `Hi ${name},\n\nThank you for contacting me. I’ll reply shortly.\n\nBest regards,\nChristine Schwarz`,
     });
 
     const filePath = path.join(__dirname, "messages.json");
@@ -116,50 +118,75 @@ app.post("/subscribe", async (req, res) => {
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
-      subject: "New Subscription",
+      subject: "New Newsletter Subscription",
       text: `New subscriber: ${email}`,
     });
 
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Thanks for subscribing!",
-      text: `Hi,\n\nThanks for subscribing!\n\nBest regards,\nChristine Schwarz`,
+      subject: "Thank you for subscribing!",
+      text: `Hi,\n\nThank you for subscribing to our newsletter!\n\nBest regards,\nChristine Schwarz`,
     });
 
-    res.json({ message: "✅ Subscription received" });
+    res.json({ message: "Subscription received" });
   } catch (err) {
-    console.error("❌ Subscribe error:", err);
-    res.status(500).json({ error: "Server error" });
+    console.error(err);
+    res.status(500).json({ error: "Failed to send email" });
   }
 });
 
-// ---------- Serve React frontend ----------
-const clientDistPath = path.join(__dirname, "../client/dist");
-app.use(express.static(clientDistPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(clientDistPath, "index.html"));
-});
-
-// ---------- Error Handling ----------
-app.use((req, res) =>
-  res.status(404).json({ success: false, message: "Route not found" })
-);
-app.use((err, req, res, next) =>
-  res.status(err.status || 500).json({ success: false, message: err.message })
-);
-
-// ---------- Start server AFTER MongoDB ----------
-const startServer = async () => {
+// ---------- Forgot & Reset Password ----------
+app.post("/user/forgot-password", async (req, res) => {
+  const { email } = req.body;
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ Connected to MongoDB");
-    app.listen(PORT, () =>
-      console.log(`✅ Server running on port ${PORT}`)
-    );
-  } catch (err) {
-    console.error("❌ MongoDB connection error:", err.message);
-  }
-};
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-startServer();
+    const token = crypto.randomBytes(32).toString("hex");
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600 * 1000;
+    await user.save();
+
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+    await transporter.sendMail({
+      from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Password Reset Request",
+      html: `<p>Click <a href="${resetUrl}">here</a> to reset your password. Valid for 1 hour.</p>`,
+    });
+
+    res.json({ message: "Password reset email sent!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.post("/user/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user)
+      return res.status(400).json({ message: "Invalid or expired token" });
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ message: "Password has been reset successfully!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ---------- Start server ----------
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
