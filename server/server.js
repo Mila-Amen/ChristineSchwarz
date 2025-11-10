@@ -7,6 +7,7 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5003",
 ];
+
+app.use("/api/users", userRoutes);
 
 app.use(
   cors({
@@ -73,7 +76,12 @@ app.post("/api/contact", async (req, res) => {
   if (!name || !email || !message)
     return res.status(400).json({ error: "All fields are required" });
 
-  console.log("📩 Contact request received:", { name, email, subject, message });
+  console.log("📩 Contact request received:", {
+    name,
+    email,
+    subject,
+    message,
+  });
 
   try {
     // Email to admin
@@ -87,7 +95,6 @@ app.post("/api/contact", async (req, res) => {
     });
     console.log("✅ Email to admin sent");
 
-
     // Confirmation email to user
 
     console.log("📨 Sending confirmation email to user...");
@@ -100,7 +107,6 @@ app.post("/api/contact", async (req, res) => {
     });
 
     console.log("✅ Confirmation email sent");
-
 
     // Save messages (note: ephemeral on Render)
     const filePath = path.join(__dirname, "messages.json");
