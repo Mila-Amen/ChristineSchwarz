@@ -10,7 +10,6 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
 import User from "./models/User.js";
-import router from "./router.js";
 
 dotenv.config();
 const app = express();
@@ -51,7 +50,6 @@ app.options("*", cors());
 // ---------- Middleware ----------
 app.use(express.json());
 app.use("/user", userRoutes);
-app.use(require("./router"));
 
 // ---------- Nodemailer ----------
 const transporter = nodemailer.createTransport({
