@@ -6,12 +6,18 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-import router from path.resolve(__dirname, "router.js");
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import router from pathToFileURL(path.join(__dirname, "router.js")).href;
+
+
 const app = express();
 const PORT = process.env.PORT || 5003;
+
 
 // ---------- MongoDB ----------
 mongoose
@@ -46,8 +52,7 @@ app.use(
 app.use(express.json());
 app.use("/api", router);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 // ---------- Nodemailer ----------
 const transporter = nodemailer.createTransport({
