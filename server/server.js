@@ -6,6 +6,7 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
+import router from "./router.js"; // <-- add this line
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 5003;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // ---------- CORS ----------
 const allowedOrigins = [
@@ -25,22 +26,25 @@ const allowedOrigins = [
   process.env.PROD_URL,
   "https://christineschwarz.onrender.com",
   "http://localhost:5173",
-  "http://localhost:5003"
+  "http://localhost:5003",
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // allow Postman/curl
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS not allowed for this origin: ${origin}`));
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow Postman/curl
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error(`CORS not allowed for this origin: ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
 // ---------- Middleware ----------
 app.use(express.json());
+app.use("/api", router);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -52,12 +56,12 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS,
   },
-  tls: { rejectUnauthorized: false }
+  tls: { rejectUnauthorized: false },
 });
 
-transporter.verify(err => {
+transporter.verify((err) => {
   if (err) console.error("❌ Mail server connection failed:", err);
   else console.log("✅ Mail server ready");
 });
@@ -74,7 +78,7 @@ app.post("/api/contact", async (req, res) => {
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
       subject: `New Contact: ${subject}`,
-      text: `From: ${name} <${email}>\n\n${message}`
+      text: `From: ${name} <${email}>\n\n${message}`,
     });
 
     // Confirmation email
@@ -82,7 +86,7 @@ app.post("/api/contact", async (req, res) => {
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Thanks for your message!",
-      text: `Hi ${name},\n\nThanks for contacting me.\n\nBest regards,\nChristine Schwarz`
+      text: `Hi ${name},\n\nThanks for contacting me.\n\nBest regards,\nChristine Schwarz`,
     });
 
     // Save messages (optional)
@@ -121,14 +125,14 @@ app.post("/subscribe", async (req, res) => {
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
       subject: "New Subscription",
-      text: `New subscriber: ${email}`
+      text: `New subscriber: ${email}`,
     });
 
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Thanks for subscribing!",
-      text: `Hi,\n\nThanks for subscribing!\n\nBest regards,\nChristine Schwarz`
+      text: `Hi,\n\nThanks for subscribing!\n\nBest regards,\nChristine Schwarz`,
     });
 
     res.json({ message: "✅ Subscription received" });
