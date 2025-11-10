@@ -7,7 +7,6 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
-import User from "./models/User.js";
 
 dotenv.config();
 console.clear();
