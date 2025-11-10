@@ -136,7 +136,7 @@ app.post("/subscribe", async (req, res) => {
   }
 });
 
-// ---------- Forgot & Reset Password ----------
+/* // ---------- Forgot & Reset Password ----------
 app.post("/user/forgot-password", async (req, res) => {
   const { email } = req.body;
   try {
@@ -184,7 +184,7 @@ app.post("/user/reset-password/:token", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
-});
+}); */
 
 // ---------- Start server ----------
 app.listen(PORT, () => {
