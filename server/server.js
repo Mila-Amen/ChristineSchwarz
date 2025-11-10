@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -16,8 +15,8 @@ const PORT = process.env.PORT || 5003;
 // ---------- MongoDB ----------
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // ---------- CORS ----------
 const allowedOrigins = [
@@ -26,22 +25,19 @@ const allowedOrigins = [
   process.env.PROD_URL,
   "https://christineschwarz.onrender.com",
   "http://localhost:5173",
-  "http://localhost:5003",
+  "http://localhost:5003"
 ];
 
-
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin) return callback(null, true); // allow Postman/curl
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      callback(new Error(`CORS not allowed for this origin: ${origin}`));
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow Postman/curl
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS not allowed for this origin: ${origin}`));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 
 // ---------- Middleware ----------
 app.use(express.json());
@@ -56,57 +52,40 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASS
   },
-  tls: { rejectUnauthorized: false },
-  logger: true,
-  debug: true,
+  tls: { rejectUnauthorized: false }
 });
 
-transporter.verify((error) => {
-  if (error) console.error("❌ Mail server connection failed:", error);
-  else console.log("✅ Mail server is ready to send emails");
+transporter.verify(err => {
+  if (err) console.error("❌ Mail server connection failed:", err);
+  else console.log("✅ Mail server ready");
 });
 
-// ---------- API Routes ----------
+// ---------- Contact Form ----------
 app.post("/api/contact", async (req, res) => {
   const { name, email, subject, message } = req.body;
   if (!name || !email || !message)
     return res.status(400).json({ error: "All fields are required" });
 
-  console.log("📩 Contact request received:", {
-    name,
-    email,
-    subject,
-    message,
-  });
-
   try {
-    // Email to admin
-    console.log("📨 Sending email to admin...");
-
+    // Admin email
     await transporter.sendMail({
-      from: '"Christine Schwarz" <info@christineschwarz.life>',
+      from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
-      subject: `New Contact Form Submission: ${subject}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
+      subject: `New Contact: ${subject}`,
+      text: `From: ${name} <${email}>\n\n${message}`
     });
-    console.log("✅ Email to admin sent");
 
-    // Confirmation email to user
-
-    console.log("📨 Sending confirmation email to user...");
-
+    // Confirmation email
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Thank you for your message!",
-      text: `Hi ${name},\n\nThank you for contacting me. I’ll reply soon.\n\nBest regards,\nChristine Schwarz`,
+      subject: "Thanks for your message!",
+      text: `Hi ${name},\n\nThanks for contacting me.\n\nBest regards,\nChristine Schwarz`
     });
 
-    console.log("✅ Confirmation email sent");
-
-    // Save messages (note: ephemeral on Render)
+    // Save messages (optional)
     const filePath = path.join(__dirname, "messages.json");
     const existing = fs.existsSync(filePath)
       ? JSON.parse(fs.readFileSync(filePath))
@@ -121,6 +100,7 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// ---------- Subscribe ----------
 app.post("/subscribe", async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: "Email required" });
@@ -138,30 +118,29 @@ app.post("/subscribe", async (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(subscribers, null, 2));
 
     await transporter.sendMail({
-      from: `"Christine Schwarz" <info@christineschwarz.life>`,
+      from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
-      subject: "New Newsletter Subscription",
-      text: `New subscriber: ${email}`,
+      subject: "New Subscription",
+      text: `New subscriber: ${email}`
     });
 
     await transporter.sendMail({
-      from: `"Christine Schwarz" <info@christineschwarz.life>`,
+      from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "Thank you for subscribing!",
-      text: `Hi,\n\nThank you for subscribing to our newsletter!\n\nBest regards,\nChristine Schwarz`,
+      subject: "Thanks for subscribing!",
+      text: `Hi,\n\nThanks for subscribing!\n\nBest regards,\nChristine Schwarz`
     });
 
-    res.json({ message: "Subscription received" });
+    res.json({ message: "✅ Subscription received" });
   } catch (err) {
     console.error("❌ Subscribe error:", err);
-    res.status(500).json({ error: "Failed to send email" });
+    res.status(500).json({ error: "Server error" });
   }
 });
 
 // ---------- Serve React frontend ----------
 const clientDistPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientDistPath));
-// SPA routing: serve index.html for all unmatched routes
 app.get("*", (req, res) => {
   res.sendFile(path.join(clientDistPath, "index.html"));
 });
