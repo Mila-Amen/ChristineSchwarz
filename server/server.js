@@ -6,7 +6,7 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-import router from path.join(__dirname, "router.js");
+import router from path.resolve(__dirname, "router.js");
 
 dotenv.config();
 
