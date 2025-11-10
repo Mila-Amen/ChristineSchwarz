@@ -12,20 +12,12 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import router from pathToFileURL(path.join(__dirname, "router.js")).href;
-
+import router from "./router.js"; // ✅ This works in ESM
 
 const app = express();
 const PORT = process.env.PORT || 5003;
 
-
-// ---------- MongoDB ----------
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
-
-// ---------- CORS ----------
+// ---------- CORS (first!) ----------
 const allowedOrigins = [
   process.env.CLIENT_URL,
   process.env.FRONTEND_URL,
@@ -52,8 +44,6 @@ app.use(
 app.use(express.json());
 app.use("/api", router);
 
-
-
 // ---------- Nodemailer ----------
 const transporter = nodemailer.createTransport({
   host: "server1.s-tech.de",
@@ -78,7 +68,6 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
 
   try {
-    // Admin email
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: "info@christineschwarz.life",
@@ -86,7 +75,6 @@ app.post("/api/contact", async (req, res) => {
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 
-    // Confirmation email
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -94,7 +82,6 @@ app.post("/api/contact", async (req, res) => {
       text: `Hi ${name},\n\nThanks for contacting me.\n\nBest regards,\nChristine Schwarz`,
     });
 
-    // Save messages (optional)
     const filePath = path.join(__dirname, "messages.json");
     const existing = fs.existsSync(filePath)
       ? JSON.parse(fs.readFileSync(filePath))
@@ -154,5 +141,25 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(clientDistPath, "index.html"));
 });
 
-// ---------- Start server ----------
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+// ---------- Error Handling ----------
+app.use((req, res) =>
+  res.status(404).json({ success: false, message: "Route not found" })
+);
+app.use((err, req, res, next) =>
+  res.status(err.status || 500).json({ success: false, message: err.message })
+);
+
+// ---------- Start server AFTER MongoDB ----------
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("✅ Connected to MongoDB");
+    app.listen(PORT, () =>
+      console.log(`✅ Server running on port ${PORT}`)
+    );
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err.message);
+  }
+};
+
+startServer();
