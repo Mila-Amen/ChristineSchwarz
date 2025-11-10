@@ -7,7 +7,6 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -30,7 +29,6 @@ const allowedOrigins = [
   "http://localhost:5003",
 ];
 
-app.use("/api/users", userRoutes);
 
 app.use(
   cors({
