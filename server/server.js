@@ -73,22 +73,34 @@ app.post("/api/contact", async (req, res) => {
   if (!name || !email || !message)
     return res.status(400).json({ error: "All fields are required" });
 
+  console.log("📩 Contact request received:", { name, email, subject, message });
+
   try {
     // Email to admin
+    console.log("📨 Sending email to admin...");
+
     await transporter.sendMail({
       from: '"Christine Schwarz" <info@christineschwarz.life>',
       to: "info@christineschwarz.life",
       subject: `New Contact Form Submission: ${subject}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
+    console.log("✅ Email to admin sent");
+
 
     // Confirmation email to user
+
+    console.log("📨 Sending confirmation email to user...");
+
     await transporter.sendMail({
       from: `"Christine Schwarz" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Thank you for your message!",
       text: `Hi ${name},\n\nThank you for contacting me. I’ll reply soon.\n\nBest regards,\nChristine Schwarz`,
     });
+
+    console.log("✅ Confirmation email sent");
+
 
     // Save messages (note: ephemeral on Render)
     const filePath = path.join(__dirname, "messages.json");
